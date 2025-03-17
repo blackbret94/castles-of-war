@@ -1,8 +1,9 @@
 using UnityEngine;
+using Vashta.CastlesOfWar.Simulation;
 
 namespace Vashta.CastlesOfWar.Unit
 {
-    public class UnitCombat : MonoBehaviour
+    public class UnitCombat : MonoBehaviour, ISimulatedObject
     {
         public UnitBase UnitBase { get; set; }
         private UnitData _unitData => UnitBase.UnitData;
@@ -26,14 +27,14 @@ namespace Vashta.CastlesOfWar.Unit
             // Block if attacking or recovering from an attack
             if (CombatPhase != UnitCombatPhase.Ready)
             {
-                Debug.Log("Blocked by combat phase: " + CombatPhase);
+                // Debug.Log("Blocked by combat phase: " + CombatPhase);
                 return true;
             }
 
             // Block if an enemy is in melee range
             if (MeleeCollider.Units.Count > 0)
             {
-                Debug.Log("Blocked by units in range: " + MeleeCollider.Units.Count);
+                // Debug.Log("Blocked by units in range: " + MeleeCollider.Units.Count);
                 return true;
             }
 
@@ -96,7 +97,7 @@ namespace Vashta.CastlesOfWar.Unit
             if (nearestUnit == null)
                 return false;
 
-            ushort damageDone = nearestUnit.Damage.TakeAttack(_unitData.MeleeNormalDamage, _unitData.MeleePiercingDamage,
+            ushort damageDone = nearestUnit.Health.TakeAttack(_unitData.MeleeNormalDamage, _unitData.MeleePiercingDamage,
                 _unitData.MeleeSiegeDamage, UnitCombatType.Melee);
 
             return damageDone > 0;

@@ -1,12 +1,13 @@
 using UnityEngine;
-using Vashta.CastlesOfWar.ScriptableObject;
+using Vashta.CastlesOfWar.Simulation;
+using Vashta.CastlesOfWar.UI;
 
 namespace Vashta.CastlesOfWar.Unit
 {
     [RequireComponent(typeof(UnitCombat))]
     [RequireComponent(typeof(UnitMovement))]
-    [RequireComponent(typeof(UnitDamage))]
-    public class UnitBase : MonoBehaviour
+    [RequireComponent(typeof(UnitHealth))]
+    public class UnitBase : MonoBehaviour, ISimulatedObject
     {
         public Team Team { get; set; }
         public ushort TeamIndex { get=>Team.TeamIndex; }
@@ -14,15 +15,16 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort MaxHealth { get; set; }
         public ushort CurrentHealth { get; set; }
         public ushort Armor { get; set; }
-        public UnitData UnitData;
-        public Transform AttackOrigin;
-        public SpriteRenderer SpriteRenderer;
-
-        // Dependencies
+        
+        [Header("Dependencies")]
         public UnitCombat Combat { get; set; }
         public UnitMovement Movement { get; set; }
         public UnitMeleeCollider MeleeCollider { get; set; }
-        public UnitDamage Damage { get; set; }
+        public UnitHealth Health { get; set; }
+        public UnitData UnitData;
+        public Transform AttackOrigin;
+        public SpriteRenderer SpriteRenderer;
+        public Healthbar Healthbar;
         
         private void Awake()
         {
@@ -30,27 +32,31 @@ namespace Vashta.CastlesOfWar.Unit
             Combat = GetComponent<UnitCombat>();
             Movement = GetComponent<UnitMovement>();
             MeleeCollider = GetComponentInChildren<UnitMeleeCollider>();
-            Damage = GetComponent<UnitDamage>();
+            Health = GetComponent<UnitHealth>();
             
             // Init
             Movement.unitBase = this;
             Combat.UnitBase = this;
             Combat.MeleeCollider = MeleeCollider;
             MeleeCollider.UnitBase = this;
-            Damage.UnitBase = this;
+            Health.UnitBase = this;
         }
         
         public void Init(Team team)
         {
             Team = team;
             Speed = UnitData.Speed * Random.Range(.8f, 1.2f);
+            Armor = UnitData.Armor;
+
             MaxHealth = UnitData.Health;
             CurrentHealth = MaxHealth;
-            Armor = UnitData.Armor;
+            Healthbar.SetMaxHealth(MaxHealth);
+            Healthbar.SetHealth(CurrentHealth);
+            
             MeleeCollider.SetColliderWidth(UnitData.MeleeRange);
         }
 
-        public void OneTimeStep(float timestep)
+        public void OneStep(float timestep)
         {
             Combat.OneStep(timestep);
             Movement.OneStep(timestep);

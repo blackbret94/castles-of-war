@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamIndex: 1
+  SpawnRate: 1.5
 --- !u!4 &591689430
 Transform:
   m_ObjectHideFlags: 0

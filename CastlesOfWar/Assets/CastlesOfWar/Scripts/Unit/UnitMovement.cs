@@ -1,8 +1,9 @@
 using UnityEngine;
+using Vashta.CastlesOfWar.Simulation;
 
 namespace Vashta.CastlesOfWar.Unit
 {
-    public class UnitMovement : MonoBehaviour
+    public class UnitMovement : MonoBehaviour, ISimulatedObject
     {
         public UnitBase unitBase { get; set; }
 

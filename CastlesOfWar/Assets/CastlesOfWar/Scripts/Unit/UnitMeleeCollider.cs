@@ -54,7 +54,7 @@ namespace Vashta.CastlesOfWar.Unit
 
         public void SetColliderWidth(float width)
         {
-            _collider2D.size = new Vector2(width, _collider2D.size.y);
+            _collider2D.size = new Vector2(width*2, _collider2D.size.y);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
 using Vashta.CastlesOfWar.Combat;
+using Vashta.CastlesOfWar.UI;
 using Mathf = UnityEngine.Mathf;
 
 namespace Vashta.CastlesOfWar.Unit
 {
-    public class UnitDamage : MonoBehaviour
+    public class UnitHealth : MonoBehaviour
     {
         public UnitBase UnitBase { get; set; }
         private UnitData _unitData => UnitBase.UnitData;
+        private Healthbar _healthbar => UnitBase.Healthbar;
 
         public ushort TakeAttack(ushort normalDamage, ushort piercingDamage, ushort siegeDamage, UnitCombatType combatType)
         {
@@ -29,7 +31,11 @@ namespace Vashta.CastlesOfWar.Unit
             if (UnitBase.CurrentHealth <= 0)
             {
                 // Handle death
-                Destroy(UnitBase);
+                UnitBase.Team.DespawnUnit(UnitBase);
+            }
+            else
+            {
+                _healthbar.SetHealth(UnitBase.CurrentHealth);
             }
         }
         

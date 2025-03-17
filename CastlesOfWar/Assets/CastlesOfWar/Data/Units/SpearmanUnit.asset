@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0b864072e94282b0ac22a16244bf52, type: 3}
-  m_Name: Spearman
+  m_Name: SpearmanUnit
   m_EditorClassIdentifier: 
   Id: 7a574e71-8fbc-438a-a114-1e563f9eaa01
-  SessionId: 1
+  SessionId: 2
   Title: Spearman
   DisplayName: Spearman
   Description: Basic melee unit
   Sprite: {fileID: 0}
   Cost: 2
-  Health: 5
+  Health: 10
   Armor: 2
   Speed: 1
   UnitType: 0
   MeleeRange: 1
   MeleeAttackSpeed: 0.25
   MeleeAttackCooldown: 1.5
-  MeleeNormalDamage: 4
+  MeleeNormalDamage: 3
   MeleePiercingDamage: 1
   MeleeSiegeDamage: 3
-  MeleeDamageArea: 0
+  MeleeDamageAreaPercent: 0
   Range: 0
   RangedAttackSpeed: 0
   RangedAttackCooldown: 0
   RangedNormalDamage: 0
   RangedPiercingDamage: 0
   RangedSiegeDamage: 0
-  RangedDamageArea: 0
+  RangedDamageAreaPercent: 0
   VulnerabilityMelee: 1
   VulnerabilityRange: 1
   VulnerabilityNormal: 1
   VulnerabilityPiercing: 1
-  VulnerabilitySiege: 1
+  VulnerabilitySiege: 0.25

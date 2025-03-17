@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Unit Dictionary
   m_EditorClassIdentifier: 
   Directory:
+  - {fileID: 11400000, guid: 6b9f2243aa0866243a1056a440098031, type: 2}
   - {fileID: 11400000, guid: 19483c6ad2a6b034c96445027db47c8f, type: 2}

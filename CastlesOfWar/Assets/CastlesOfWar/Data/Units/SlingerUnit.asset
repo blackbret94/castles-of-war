@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0b864072e94282b0ac22a16244bf52, type: 3}
+  m_Name: SlingerUnit
+  m_EditorClassIdentifier: 
+  Id: 537936db-8821-46f3-ab9c-b87dfb313a14
+  SessionId: 1
+  Title: Slinger
+  DisplayName: Slinger
+  Description: Basic ranged unit
+  Sprite: {fileID: 0}
+  Cost: 5
+  Health: 5
+  Armor: 0
+  Speed: 1
+  UnitType: 1
+  MeleeRange: 0.5
+  MeleeAttackSpeed: 0.25
+  MeleeAttackCooldown: 2
+  MeleeNormalDamage: 2
+  MeleePiercingDamage: 1
+  MeleeSiegeDamage: 0
+  MeleeDamageAreaPercent: 0
+  Range: 5
+  RangedAttackSpeed: 0.5
+  RangedAttackCooldown: 2
+  RangedNormalDamage: 4
+  RangedPiercingDamage: 4
+  RangedSiegeDamage: 2
+  RangedDamageAreaPercent: 0
+  VulnerabilityMelee: 1
+  VulnerabilityRange: 1
+  VulnerabilityNormal: 1
+  VulnerabilityPiercing: 1
+  VulnerabilitySiege: 0.25

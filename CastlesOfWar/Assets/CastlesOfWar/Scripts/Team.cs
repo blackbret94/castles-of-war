@@ -64,11 +64,17 @@ namespace Vashta.CastlesOfWar
             
         }
 
+        public void DespawnUnit(UnitBase unit)
+        {
+            _units.Remove(unit);
+            Object.Destroy(unit.gameObject);
+        }
+
         public void MoveUnits(float timestep)
         {
             foreach (UnitBase unitBase in _units)
             {
-                unitBase.OneTimeStep(timestep);
+                unitBase.OneStep(timestep);
             }
         }
     }
