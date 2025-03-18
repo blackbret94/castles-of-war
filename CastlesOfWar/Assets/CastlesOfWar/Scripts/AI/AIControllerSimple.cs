@@ -1,10 +1,14 @@
 using UnityEngine;
+using Vashta.CastlesOfWar.Unit;
 using Vashta.CastlesOfWar.Util;
 
 namespace Vashta.CastlesOfWar.AI
 {
     public class AIControllerSimple : AIControllerBase
     {
+        public UnitData SpearUnit;
+        public UnitData SlingerUnit;
+        
         public float SpawnRate = 1.5f;
         private Timer _spawnTimer;
 
@@ -24,11 +28,11 @@ namespace Vashta.CastlesOfWar.AI
             {
                 if (Random.Range(0, 5) < 4)
                 {
-                    GameManager.GetInstance().SpawnSpear(TeamIndex);
+                    GameManager.GetInstance().SpawnUnit(SpearUnit, TeamIndex);
                 }
                 else
                 {
-                    GameManager.GetInstance().SpawnSlinger(TeamIndex);
+                    GameManager.GetInstance().SpawnUnit(SlingerUnit, TeamIndex);
                 }
             }
         }

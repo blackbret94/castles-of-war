@@ -17,12 +17,16 @@ MonoBehaviour:
   Title: Spearman
   DisplayName: Spearman
   Description: Basic melee unit
-  Sprite: {fileID: 0}
-  Cost: 2
+  Prefab: {fileID: 6628730050691863414, guid: 779016c0cb887574d91da3ca37564794, type: 3}
   Health: 10
   Armor: 2
   Speed: 1
   UnitType: 0
+  SpriteIdle: {fileID: 0}
+  GoldCost: 8
+  PowerCost: 0
+  GoldRewardOnKill: 0
+  PowerRewardOnKill: 5
   MeleeRange: 0.75
   MeleeAttackSpeed: 0.25
   MeleeAttackCooldown: 1.5
@@ -42,6 +46,7 @@ MonoBehaviour:
   ProjectileGravity: -9.8
   ProjectileLifetime: 100
   ProjectileDestroyOnHit: 1
+  ProjectileHasTrajectory: 0
   ProjectilePrefab: {fileID: 0}
   VulnerabilityMelee: 1
   VulnerabilityRange: 1

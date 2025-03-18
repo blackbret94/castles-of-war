@@ -197,8 +197,6 @@ namespace Vashta.CastlesOfWar.Unit
             ushort siegeDamage = _unitData.RangedSiegeDamage;
             float damageAreaPerc = _unitData.RangedDamageAreaPercent;
             
-            Debug.Log("Spawning projectile");
-            
             projectileBase.Init(normalDamage, piercingDamage, siegeDamage, damageAreaPerc, UnitBase, 
                 speedX*speedDirectionSign, speedY, gravity, lifetime, destroyOnHit, teamIndex);
             

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using Vashta.CastlesOfWar.ScriptableObject;
 
 namespace Vashta.CastlesOfWar.Unit
@@ -8,12 +7,21 @@ namespace Vashta.CastlesOfWar.Unit
     public class UnitData : ScriptableObjectWithID
     {
         [Header("BaseStats")] 
-        public Sprite Sprite;
-        public ushort Cost;
+        [Tooltip("Prefab to spawn.  MUST contain UnitBase component. Use UnitBase prefab as a model.")]
+        public GameObject Prefab;
         public ushort Health;
         public ushort Armor;
         public float Speed;
         public UnitType UnitType;
+        
+        [Header("Art")]
+        public Sprite SpriteIdle;
+        
+        [Header("Resources")]
+        public ushort GoldCost;
+        public ushort PowerCost;
+        public ushort GoldRewardOnKill;
+        public ushort PowerRewardOnKill;
         
         [Header("Melee")]
         public float MeleeRange;
@@ -22,7 +30,8 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort MeleeNormalDamage;
         public ushort MeleePiercingDamage;
         public ushort MeleeSiegeDamage;
-        public float MeleeDamageAreaPercent; // Percent of damage that is AOE
+        [Tooltip("Percent of damage that is applied to AOE")]
+        public float MeleeDamageAreaPercent;
         
         [Header("Range")]
         public float Range; 
@@ -31,14 +40,20 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort RangedNormalDamage;
         public ushort RangedPiercingDamage;
         public ushort RangedSiegeDamage;
+        [Tooltip("Percent of damage that is applied to AOE")]
         public float RangedDamageAreaPercent;
         
         [Header("Projectile")]
         public float ProjectileSpeedX;
-        public float ProjectileAngle; // Fake a trajectory using distance as a reference. 0 is horizontal.
-        public float ProjectileGravity = -9.8f;
-        public float ProjectileLifetime = 100; // Max lifetime of projectile
+        [Tooltip("Fake a trajectory using distance as a reference. 0 is horizontal.")]
+        public float ProjectileAngle;
+        [Tooltip("Accelerates in the -y direction.  M/s.  9.8 for realism.")]
+        public float ProjectileGravity = 9.8f;
+        [Tooltip("Max lifetime of projectile")]
+        public float ProjectileLifetime = 100;
         public bool ProjectileDestroyOnHit = true;
+        [Tooltip("Enables trajectory calculations, which ensure the projectile lands at the target.  Use for lobbed artillary-style attacks.")]
+        public bool ProjectileHasTrajectory;
         public GameObject ProjectilePrefab;
         
         [Header("Vulnerabilities")]

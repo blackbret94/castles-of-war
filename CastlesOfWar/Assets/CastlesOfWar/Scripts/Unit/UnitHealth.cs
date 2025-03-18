@@ -32,6 +32,9 @@ namespace Vashta.CastlesOfWar.Unit
             {
                 // Handle death
                 UnitBase.Team.DespawnUnit(UnitBase);
+                Team enemyTeam = GameManager.GetInstance().GetEnemyTeam(UnitBase.TeamIndex);
+                enemyTeam.CurrencyController.ModifyGold(_unitData.GoldRewardOnKill);
+                enemyTeam.CurrencyController.ModifyPower(_unitData.PowerRewardOnKill);
             }
             else
             {

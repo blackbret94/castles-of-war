@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Vashta.CastlesOfWar.Currency;
 using Vashta.CastlesOfWar.Projectiles;
+using Vashta.CastlesOfWar.Unit;
 
 namespace Vashta.CastlesOfWar
 {
@@ -21,7 +23,7 @@ namespace Vashta.CastlesOfWar
         private List<ProjectileBase> _projectiles;
         
         public float Time { get; private set; }
-
+        
         private static GameManager _instance;
 
         public static GameManager GetInstance()
@@ -33,10 +35,7 @@ namespace Vashta.CastlesOfWar
         {
             _instance = this;
             _projectiles = new List<ProjectileBase>();
-        }
-        
-        void Start()
-        {
+            
             TeamLeft = new Team();
             TeamRight = new Team();
 
@@ -44,13 +43,13 @@ namespace Vashta.CastlesOfWar
             TeamLeft.Init(0, SpawnerLeft, SpawnerRight);
             TeamRight.Init(1, SpawnerRight, SpawnerLeft);
         }
-
+        
         private void Update()
         {
             float deltaTime = UnityEngine.Time.deltaTime;
             Time += deltaTime;
-            TeamLeft.MoveUnits(deltaTime);
-            TeamRight.MoveUnits(deltaTime);
+            TeamLeft.OneStep(deltaTime);
+            TeamRight.OneStep(deltaTime);
 
             List<ProjectileBase> projectiles = new List<ProjectileBase>(_projectiles);
             foreach (ProjectileBase projectileBase in projectiles)
@@ -64,28 +63,35 @@ namespace Vashta.CastlesOfWar
             }
         }
 
-        public void SpawnSpear(int teamIndex)
+        public Team GetEnemyTeam(int teamIndex)
         {
+            return teamIndex == 0 ? TeamRight : TeamLeft;
+        }
+
+        public void SpawnUnit(UnitData unitData, int teamIndex)
+        {
+            if (unitData == null)
+            {
+                Debug.LogError("Cannot spawn, UnitData is null!");
+                return;
+            }
+            
             if (teamIndex >= Teams.Count)
             {
                 Debug.LogWarning("Team index " + teamIndex + " is higher than the number of teams!");
                 return;
             }
-            
-            Teams[teamIndex].SpawnSpear();
-        }
 
-        public void SpawnSlinger(int teamIndex)
-        {
-            if (teamIndex >= Teams.Count)
+            if (Teams[teamIndex].SpawnUnit(unitData))
             {
-                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
-                return;
+                // Spawn success
             }
-            
-            Teams[teamIndex].SpawnSlinger();
+            else
+            {
+                // Spawn failed
+            }
         }
-
+        
         public void Advance(int teamIndex)
         {
             if (teamIndex >= Teams.Count)

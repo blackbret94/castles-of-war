@@ -17,12 +17,16 @@ MonoBehaviour:
   Title: Slinger
   DisplayName: Slinger
   Description: Basic ranged unit
-  Sprite: {fileID: 0}
-  Cost: 5
+  Prefab: {fileID: 8136705652565543788, guid: f87ebff7b298565499c816514427da27, type: 3}
   Health: 5
   Armor: 0
   Speed: 1
   UnitType: 1
+  SpriteIdle: {fileID: 0}
+  GoldCost: 12
+  PowerCost: 0
+  GoldRewardOnKill: 0
+  PowerRewardOnKill: 5
   MeleeRange: 0.5
   MeleeAttackSpeed: 0.25
   MeleeAttackCooldown: 2
@@ -42,6 +46,7 @@ MonoBehaviour:
   ProjectileGravity: 9.8
   ProjectileLifetime: 10
   ProjectileDestroyOnHit: 1
+  ProjectileHasTrajectory: 0
   ProjectilePrefab: {fileID: 5002150413727129509, guid: e1b57d96e91c16e40a7cbfb308f5c31c, type: 3}
   VulnerabilityMelee: 1
   VulnerabilityRange: 1
