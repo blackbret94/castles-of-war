@@ -29,6 +29,7 @@ namespace Vashta.CastlesOfWar
             GameObject newUnit = Object.Instantiate(GameManager.GetInstance().SpearPrefab, Spawn.transform.position, Spawn.transform.rotation);
             UnitBase newUnitBase = newUnit.GetComponent<UnitBase>();
             newUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
+            newUnitBase.Team = this;
 
             if (!newUnitBase)
             {
@@ -43,6 +44,7 @@ namespace Vashta.CastlesOfWar
         {
             GameObject newUnit = Object.Instantiate(GameManager.GetInstance().SlingerPrefab, Spawn.transform.position, Spawn.transform.rotation);
             UnitBase newUnitBase = newUnit.GetComponent<UnitBase>();
+            newUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
             newUnitBase.Team = this;
 
             if (!newUnitBase)

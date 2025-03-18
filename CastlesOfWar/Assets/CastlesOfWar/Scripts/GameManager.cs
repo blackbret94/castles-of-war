@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Vashta.CastlesOfWar.Projectiles;
 
 namespace Vashta.CastlesOfWar
 {
@@ -16,6 +17,10 @@ namespace Vashta.CastlesOfWar
 
         public GameObject SpearPrefab;
         public GameObject SlingerPrefab;
+        
+        private List<ProjectileBase> _projectiles;
+        
+        public float Time { get; private set; }
 
         private static GameManager _instance;
 
@@ -23,10 +28,15 @@ namespace Vashta.CastlesOfWar
         {
             return _instance;
         }
+
+        private void Awake()
+        {
+            _instance = this;
+            _projectiles = new List<ProjectileBase>();
+        }
         
         void Start()
         {
-            _instance = this;
             TeamLeft = new Team();
             TeamRight = new Team();
 
@@ -37,15 +47,28 @@ namespace Vashta.CastlesOfWar
 
         private void Update()
         {
-            TeamLeft.MoveUnits(Time.deltaTime);
-            TeamRight.MoveUnits(Time.deltaTime);
+            float deltaTime = UnityEngine.Time.deltaTime;
+            Time += deltaTime;
+            TeamLeft.MoveUnits(deltaTime);
+            TeamRight.MoveUnits(deltaTime);
+
+            List<ProjectileBase> projectiles = new List<ProjectileBase>(_projectiles);
+            foreach (ProjectileBase projectileBase in projectiles)
+            {
+                if (projectileBase == null)
+                {
+                    _projectiles.Remove(projectileBase);
+                }
+                
+                projectileBase.OneStep(deltaTime);
+            }
         }
 
         public void SpawnSpear(int teamIndex)
         {
             if (teamIndex >= Teams.Count)
             {
-                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
+                Debug.LogWarning("Team index " + teamIndex + " is higher than the number of teams!");
                 return;
             }
             
@@ -83,6 +106,16 @@ namespace Vashta.CastlesOfWar
             }
             
             Teams[teamIndex].Retreat();
+        }
+
+        public void AddProjectile(ProjectileBase projectile)
+        {
+            _projectiles.Add(projectile);
+        }
+
+        public void RemoveProjectile(ProjectileBase projectile)
+        {
+            _projectiles.Remove(projectile);
         }
     }
 }

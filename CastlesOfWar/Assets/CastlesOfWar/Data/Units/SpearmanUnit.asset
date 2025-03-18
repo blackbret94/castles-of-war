@@ -23,7 +23,7 @@ MonoBehaviour:
   Armor: 2
   Speed: 1
   UnitType: 0
-  MeleeRange: 1
+  MeleeRange: 0.75
   MeleeAttackSpeed: 0.25
   MeleeAttackCooldown: 1.5
   MeleeNormalDamage: 3
@@ -37,6 +37,12 @@ MonoBehaviour:
   RangedPiercingDamage: 0
   RangedSiegeDamage: 0
   RangedDamageAreaPercent: 0
+  ProjectileSpeedX: 0
+  ProjectileAngle: 0
+  ProjectileGravity: -9.8
+  ProjectileLifetime: 100
+  ProjectileDestroyOnHit: 1
+  ProjectilePrefab: {fileID: 0}
   VulnerabilityMelee: 1
   VulnerabilityRange: 1
   VulnerabilityNormal: 1

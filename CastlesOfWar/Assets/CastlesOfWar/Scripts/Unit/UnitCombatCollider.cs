@@ -5,7 +5,7 @@ using Vashta.CastlesOfWar.Util;
 namespace Vashta.CastlesOfWar.Unit
 {
     [RequireComponent(typeof(Collider2D))]
-    public class UnitMeleeCollider : MonoBehaviour
+    public class UnitCombatCollider : MonoBehaviour
     {
         private BoxCollider2D _collider2D;
         public UnitBase UnitBase { get; set; }

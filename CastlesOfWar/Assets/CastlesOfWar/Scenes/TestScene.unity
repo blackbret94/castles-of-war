@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamIndex: 1
-  SpawnRate: 1.5
+  SpawnRate: 1
 --- !u!4 &591689430
 Transform:
   m_ObjectHideFlags: 0
@@ -581,8 +581,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnerLeft: {fileID: 1392208674}
   SpawnerRight: {fileID: 422987067}
-  SpearPrefab: {fileID: 3104456456385518424, guid: e3d3fc93ec595a34ab2411cb1b9da869, type: 3}
-  SlingerPrefab: {fileID: 3104456456385518424, guid: e3d3fc93ec595a34ab2411cb1b9da869, type: 3}
+  SpearPrefab: {fileID: 6628730050691863414, guid: 779016c0cb887574d91da3ca37564794, type: 3}
+  SlingerPrefab: {fileID: 8136705652565543788, guid: f87ebff7b298565499c816514427da27, type: 3}
 --- !u!4 &990350292
 Transform:
   m_ObjectHideFlags: 0
@@ -1055,7 +1055,7 @@ GameObject:
   - component: {fileID: 1899464807}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

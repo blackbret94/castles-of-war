@@ -37,6 +37,12 @@ MonoBehaviour:
   RangedPiercingDamage: 4
   RangedSiegeDamage: 2
   RangedDamageAreaPercent: 0
+  ProjectileSpeedX: 8
+  ProjectileAngle: 20
+  ProjectileGravity: 9.8
+  ProjectileLifetime: 10
+  ProjectileDestroyOnHit: 1
+  ProjectilePrefab: {fileID: 5002150413727129509, guid: e1b57d96e91c16e40a7cbfb308f5c31c, type: 3}
   VulnerabilityMelee: 1
   VulnerabilityRange: 1
   VulnerabilityNormal: 1

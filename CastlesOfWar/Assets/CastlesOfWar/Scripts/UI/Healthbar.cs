@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine.UI;
 
 namespace Vashta.CastlesOfWar.UI
@@ -5,9 +6,10 @@ namespace Vashta.CastlesOfWar.UI
     public class Healthbar : GamePanel
     {
         public Slider HealthSlider;
-
+        public TextMeshProUGUI Text;
+        
         private ushort _maxHealth;
-        private ushort _health;
+        private short _health;
         
         public void SetMaxHealth(ushort health)
         {
@@ -15,10 +17,15 @@ namespace Vashta.CastlesOfWar.UI
             RefreshVisuals();
         }
 
-        public void SetHealth(ushort health)
+        public void SetHealth(short health)
         {
             _health = health;
             RefreshVisuals();
+        }
+
+        public void SetText(string text)
+        {
+            Text.text = text;
         }
 
         public void RefreshVisuals()

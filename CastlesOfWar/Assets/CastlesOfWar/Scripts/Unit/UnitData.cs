@@ -1,5 +1,5 @@
 using UnityEngine;
-using Vashta.CastlesOfWar.Projectiles;
+using UnityEngine.Serialization;
 using Vashta.CastlesOfWar.ScriptableObject;
 
 namespace Vashta.CastlesOfWar.Unit
@@ -25,7 +25,7 @@ namespace Vashta.CastlesOfWar.Unit
         public float MeleeDamageAreaPercent; // Percent of damage that is AOE
         
         [Header("Range")]
-        public float Range;
+        public float Range; 
         public float RangedAttackSpeed;
         public float RangedAttackCooldown;
         public ushort RangedNormalDamage;
@@ -34,10 +34,11 @@ namespace Vashta.CastlesOfWar.Unit
         public float RangedDamageAreaPercent;
         
         [Header("Projectile")]
-        public float ProjectileSpeed;
-        public float ProjectileGravity;
-        public float ProjectileLifetime;
-        public bool ProjectileDestroyOnHit;
+        public float ProjectileSpeedX;
+        public float ProjectileAngle; // Fake a trajectory using distance as a reference. 0 is horizontal.
+        public float ProjectileGravity = -9.8f;
+        public float ProjectileLifetime = 100; // Max lifetime of projectile
+        public bool ProjectileDestroyOnHit = true;
         public GameObject ProjectilePrefab;
         
         [Header("Vulnerabilities")]

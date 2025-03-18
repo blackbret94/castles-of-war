@@ -1,4 +1,5 @@
 using UnityEngine;
+using Vashta.CastlesOfWar.Projectiles;
 using Vashta.CastlesOfWar.Simulation;
 
 namespace Vashta.CastlesOfWar.Unit
@@ -8,18 +9,23 @@ namespace Vashta.CastlesOfWar.Unit
         public UnitBase UnitBase { get; set; }
         private UnitData _unitData => UnitBase.UnitData;
         private Transform _attackOrigin => UnitBase.AttackOrigin;
-
-        // This could eventually be moved into an AttackData object
-        private float _lastMeleeAttackTime;
-        private float _lastRangedAttackTime;
+        
+        private float _lastAttackTime = 0f;
         private UnitCombatType _combatType;
+        private GameManager _gameManager;
         
         public UnitCombatPhase CombatPhase { get; private set; }
-        public UnitMeleeCollider MeleeCollider { get; set; }
+        public UnitCombatCollider MeleeCollider { get; set; }
+        public UnitCombatCollider RangedCollider { get; set; }
 
         private void Awake()
         {
             CombatPhase = UnitCombatPhase.Ready;
+        }
+
+        private void Start()
+        {
+            _gameManager = GameManager.GetInstance();
         }
 
         public bool IsMovementBlocked()
@@ -44,31 +50,59 @@ namespace Vashta.CastlesOfWar.Unit
         // Later this can be turned into a state machine or behaviour tree
         public void OneStep(float timestep)
         {
-            if (CombatPhase == UnitCombatPhase.Ready)
+            switch (CombatPhase)
             {
-                // if target in range, attack
-                if (!TryAttackMelee())
+                // Check to start combat
+                case UnitCombatPhase.Ready:
                 {
-                    TryAttackRanged();
+                    // if target in range, attack
+                    if (!TryAttackMelee())
+                    {
+                        TryAttackRanged();
+                    } 
+                
+                    // Attack
+                    break;
                 }
-            } else if (CombatPhase == UnitCombatPhase.Attacking)
-            {
-                if (Time.time >= _lastMeleeAttackTime + _unitData.MeleeAttackSpeed)
+                // Execute melee attack
+                case UnitCombatPhase.Attacking when _combatType == UnitCombatType.Melee:
                 {
-                    if (_combatType == UnitCombatType.Melee)
+                    if (_gameManager.Time >= _lastAttackTime + _unitData.MeleeAttackSpeed)
                     {
                         AttackMelee();
-                    } else if (_combatType == UnitCombatType.Ranged)
-                    {
-                        AttackRanged();
+                        CombatPhase = UnitCombatPhase.Recovering;
+
                     }
                     
-                    CombatPhase = UnitCombatPhase.Recovering;
+                    break;
                 }
-            } else if (CombatPhase == UnitCombatPhase.Recovering)
-            {
-                if (Time.time >= _lastMeleeAttackTime + _unitData.MeleeAttackSpeed + _unitData.MeleeAttackCooldown)
-                    CombatPhase = UnitCombatPhase.Ready;
+                // Execute ranged attack
+                case UnitCombatPhase.Attacking when _combatType == UnitCombatType.Ranged:
+                {
+                    if (_gameManager.Time >= _lastAttackTime + _unitData.RangedAttackSpeed)
+                    {
+                        AttackRanged();
+                        
+                        CombatPhase = UnitCombatPhase.Recovering;
+                    }
+                    break;
+                }
+                // Recover melee
+                case UnitCombatPhase.Recovering when _combatType == UnitCombatType.Melee:
+                {
+                    if (_gameManager.Time >= _lastAttackTime + _unitData.MeleeAttackSpeed + _unitData.MeleeAttackCooldown)
+                        CombatPhase = UnitCombatPhase.Ready;
+                    
+                    break;
+                }
+                // Recover ranged
+                case UnitCombatPhase.Recovering when _combatType == UnitCombatType.Ranged:
+                {
+                    if (_gameManager.Time >= _lastAttackTime + _unitData.RangedAttackSpeed + _unitData.RangedAttackCooldown)
+                        CombatPhase = UnitCombatPhase.Ready;
+
+                    break;
+                }
             }
         }
         private bool TryAttackMelee()
@@ -79,7 +113,7 @@ namespace Vashta.CastlesOfWar.Unit
             {
                 // Attack
                 CombatPhase = UnitCombatPhase.Attacking;
-                _lastMeleeAttackTime = Time.time;
+                _lastAttackTime = _gameManager.Time;
                 _combatType = UnitCombatType.Melee;
 
                 return true;
@@ -97,7 +131,7 @@ namespace Vashta.CastlesOfWar.Unit
             if (nearestUnit == null)
                 return false;
 
-            ushort damageDone = nearestUnit.Health.TakeAttack(_unitData.MeleeNormalDamage, _unitData.MeleePiercingDamage,
+            short damageDone = nearestUnit.Health.TakeAttack(_unitData.MeleeNormalDamage, _unitData.MeleePiercingDamage,
                 _unitData.MeleeSiegeDamage, UnitCombatType.Melee);
 
             return damageDone > 0;
@@ -105,12 +139,72 @@ namespace Vashta.CastlesOfWar.Unit
 
         private bool TryAttackRanged()
         {
+            UnitBase nearestUnit = RangedCollider.GetNearestUnit(out float distanceToTarget);
+
+            if (nearestUnit != null)
+            {
+                // Attack
+                CombatPhase = UnitCombatPhase.Attacking;
+                _lastAttackTime = _gameManager.Time;
+                _combatType = UnitCombatType.Ranged;
+
+                return true;
+            }
+
             return false;
         }
 
         private bool AttackRanged()
         {
-            return false;
+            // Getting the nearest unit again so the correct unit is hit even if the previous target died during
+            // the attack time
+            UnitBase nearestUnit = RangedCollider.GetNearestUnit(out float distanceToTarget);
+
+            if (nearestUnit == null)
+            {
+                return false;
+            }
+
+            if (_unitData.ProjectilePrefab == null)
+            {
+                Debug.LogError("Unit type " + _unitData.Title + " is missing a projectile prefab");
+                return false;
+            }
+            
+            // Created projectile
+            GameObject newProjectile = Instantiate(_unitData.ProjectilePrefab, _attackOrigin.position, Quaternion.identity);
+            ProjectileBase projectileBase = newProjectile.GetComponent<ProjectileBase>();
+
+            if (!projectileBase)
+            {
+                Debug.LogError("Projectile for " + _unitData.Title + " is missing a ProjectileBase component");
+                Destroy(newProjectile);
+                return false;
+            }
+            
+            float speedDirectionSign = (nearestUnit.transform.position.x - UnitBase.transform.position.x) > 0 ? 1 : -1;
+            
+            float angle = _unitData.ProjectileAngle;
+            float speedX = _unitData.ProjectileSpeedX;
+            float speedY = Mathf.Tan(Mathf.Deg2Rad * angle) * speedX; // Right now this only works for very small angles, not trajectories
+            float gravity = _unitData.ProjectileGravity;
+            float lifetime = _unitData.ProjectileLifetime;
+            bool destroyOnHit = _unitData.ProjectileDestroyOnHit;
+            ushort teamIndex = UnitBase.TeamIndex;
+
+            ushort normalDamage = _unitData.RangedNormalDamage;
+            ushort piercingDamage = _unitData.RangedPiercingDamage;
+            ushort siegeDamage = _unitData.RangedSiegeDamage;
+            float damageAreaPerc = _unitData.RangedDamageAreaPercent;
+            
+            Debug.Log("Spawning projectile");
+            
+            projectileBase.Init(normalDamage, piercingDamage, siegeDamage, damageAreaPerc, UnitBase, 
+                speedX*speedDirectionSign, speedY, gravity, lifetime, destroyOnHit, teamIndex);
+            
+            _gameManager.AddProjectile(projectileBase);
+
+            return true;
         }
     }
 }

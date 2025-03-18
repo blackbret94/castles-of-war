@@ -13,13 +13,15 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort TeamIndex { get=>Team.TeamIndex; }
         public float Speed { get; set; }
         public ushort MaxHealth { get; set; }
-        public ushort CurrentHealth { get; set; }
+        public short CurrentHealth { get; set; }
         public ushort Armor { get; set; }
         
         [Header("Dependencies")]
         public UnitCombat Combat { get; set; }
         public UnitMovement Movement { get; set; }
-        public UnitMeleeCollider MeleeCollider { get; set; }
+        public UnitCombatCollider MeleeCollider;
+        public UnitCombatCollider RangedCollider;
+        
         public UnitHealth Health { get; set; }
         public UnitData UnitData;
         public Transform AttackOrigin;
@@ -31,14 +33,17 @@ namespace Vashta.CastlesOfWar.Unit
             // Get references
             Combat = GetComponent<UnitCombat>();
             Movement = GetComponent<UnitMovement>();
-            MeleeCollider = GetComponentInChildren<UnitMeleeCollider>();
             Health = GetComponent<UnitHealth>();
             
             // Init
             Movement.unitBase = this;
             Combat.UnitBase = this;
             Combat.MeleeCollider = MeleeCollider;
+            Combat.RangedCollider = RangedCollider;
+            
             MeleeCollider.UnitBase = this;
+            RangedCollider.UnitBase = this;
+            
             Health.UnitBase = this;
         }
         
@@ -49,11 +54,13 @@ namespace Vashta.CastlesOfWar.Unit
             Armor = UnitData.Armor;
 
             MaxHealth = UnitData.Health;
-            CurrentHealth = MaxHealth;
+            CurrentHealth = (short)MaxHealth;
             Healthbar.SetMaxHealth(MaxHealth);
             Healthbar.SetHealth(CurrentHealth);
+            Healthbar.SetText(UnitData.DisplayName);
             
             MeleeCollider.SetColliderWidth(UnitData.MeleeRange);
+            RangedCollider.SetColliderWidth(UnitData.Range);
         }
 
         public void OneStep(float timestep)

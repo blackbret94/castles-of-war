@@ -12,19 +12,19 @@ namespace Vashta.CastlesOfWar.Unit
         private UnitData _unitData => UnitBase.UnitData;
         private Healthbar _healthbar => UnitBase.Healthbar;
 
-        public ushort TakeAttack(ushort normalDamage, ushort piercingDamage, ushort siegeDamage, UnitCombatType combatType)
+        public short TakeAttack(ushort normalDamage, ushort piercingDamage, ushort siegeDamage, UnitCombatType combatType)
         {
             float normalDamageTaken = TakeDamage(normalDamage, DamageType.Normal, combatType);
             float piercingDamageTaken = TakeDamage(piercingDamage, DamageType.Pierce, combatType);
             float siegeDamageTaken = TakeDamage(siegeDamage, DamageType.Siege, combatType);
-            ushort totalDamage = (ushort)Mathf.FloorToInt(normalDamageTaken + piercingDamageTaken + siegeDamageTaken);
+            short totalDamage = (short)Mathf.FloorToInt(normalDamageTaken + piercingDamageTaken + siegeDamageTaken);
             
             ReduceHealth(totalDamage);
             
             return totalDamage;
         }
 
-        public void ReduceHealth(ushort healthReduction)
+        public void ReduceHealth(short healthReduction)
         {
             UnitBase.CurrentHealth -= healthReduction;
 
