@@ -4,7 +4,7 @@ namespace Vashta.CastlesOfWar.AI
 {
     public class AIControllerBase : MonoBehaviour
     {
-        public ushort TeamIndex;
+        public short TeamIndex;
 
         public virtual void OneStep()
         {

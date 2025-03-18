@@ -56,14 +56,19 @@ namespace Vashta.CastlesOfWar
             _units.Add(newUnitBase);
         }
 
-        public void Advance()
+        public void Advance(int teamIndex)
         {
-            
+            Debug.Log("Advancing");
         }
 
-        public void Retreat()
+        public void Hold(int teamIndex)
         {
-            
+            Debug.Log("Holding");
+        }
+
+        public void Retreat(int teamIndex)
+        {
+            Debug.Log("Retreating");
         }
 
         public void DespawnUnit(UnitBase unit)

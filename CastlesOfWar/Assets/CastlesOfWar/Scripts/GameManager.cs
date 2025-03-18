@@ -94,7 +94,18 @@ namespace Vashta.CastlesOfWar
                 return;
             }
             
-            Teams[teamIndex].Advance();
+            Teams[teamIndex].Advance(teamIndex);
+        }
+
+        public void Hold(int teamIndex)
+        {
+            if (teamIndex >= Teams.Count)
+            {
+                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
+                return;
+            }
+
+            Teams[teamIndex].Advance(teamIndex);
         }
 
         public void Retreat(int teamIndex)
@@ -105,7 +116,7 @@ namespace Vashta.CastlesOfWar
                 return;
             }
             
-            Teams[teamIndex].Retreat();
+            Teams[teamIndex].Retreat(teamIndex);
         }
 
         public void AddProjectile(ProjectileBase projectile)

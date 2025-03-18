@@ -1,3 +1,4 @@
+using UnityEngine;
 using Vashta.CastlesOfWar.Util;
 
 namespace Vashta.CastlesOfWar.AI
@@ -21,7 +22,14 @@ namespace Vashta.CastlesOfWar.AI
         {
             if (_spawnTimer.Run())
             {
-                GameManager.GetInstance().SpawnSpear(TeamIndex);
+                if (Random.Range(0, 5) < 4)
+                {
+                    GameManager.GetInstance().SpawnSpear(TeamIndex);
+                }
+                else
+                {
+                    GameManager.GetInstance().SpawnSlinger(TeamIndex);
+                }
             }
         }
     }
