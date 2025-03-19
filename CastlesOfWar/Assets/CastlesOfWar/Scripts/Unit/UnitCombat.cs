@@ -67,7 +67,7 @@ namespace Vashta.CastlesOfWar.Unit
                 // Execute melee attack
                 case UnitCombatPhase.Attacking when _combatType == UnitCombatType.Melee:
                 {
-                    if (_gameManager.Time >= _lastAttackTime + _unitData.MeleeAttackSpeed)
+                    if (_gameManager.SimulationTime >= _lastAttackTime + _unitData.MeleeAttackSpeed)
                     {
                         AttackMelee();
                         CombatPhase = UnitCombatPhase.Recovering;
@@ -79,7 +79,7 @@ namespace Vashta.CastlesOfWar.Unit
                 // Execute ranged attack
                 case UnitCombatPhase.Attacking when _combatType == UnitCombatType.Ranged:
                 {
-                    if (_gameManager.Time >= _lastAttackTime + _unitData.RangedAttackSpeed)
+                    if (_gameManager.SimulationTime >= _lastAttackTime + _unitData.RangedAttackSpeed)
                     {
                         AttackRanged();
                         
@@ -90,7 +90,7 @@ namespace Vashta.CastlesOfWar.Unit
                 // Recover melee
                 case UnitCombatPhase.Recovering when _combatType == UnitCombatType.Melee:
                 {
-                    if (_gameManager.Time >= _lastAttackTime + _unitData.MeleeAttackSpeed + _unitData.MeleeAttackCooldown)
+                    if (_gameManager.SimulationTime >= _lastAttackTime + _unitData.MeleeAttackSpeed + _unitData.MeleeAttackCooldown)
                         CombatPhase = UnitCombatPhase.Ready;
                     
                     break;
@@ -98,7 +98,7 @@ namespace Vashta.CastlesOfWar.Unit
                 // Recover ranged
                 case UnitCombatPhase.Recovering when _combatType == UnitCombatType.Ranged:
                 {
-                    if (_gameManager.Time >= _lastAttackTime + _unitData.RangedAttackSpeed + _unitData.RangedAttackCooldown)
+                    if (_gameManager.SimulationTime >= _lastAttackTime + _unitData.RangedAttackSpeed + _unitData.RangedAttackCooldown)
                         CombatPhase = UnitCombatPhase.Ready;
 
                     break;
@@ -113,7 +113,7 @@ namespace Vashta.CastlesOfWar.Unit
             {
                 // Attack
                 CombatPhase = UnitCombatPhase.Attacking;
-                _lastAttackTime = _gameManager.Time;
+                _lastAttackTime = _gameManager.SimulationTime;
                 _combatType = UnitCombatType.Melee;
 
                 return true;
@@ -145,7 +145,7 @@ namespace Vashta.CastlesOfWar.Unit
             {
                 // Attack
                 CombatPhase = UnitCombatPhase.Attacking;
-                _lastAttackTime = _gameManager.Time;
+                _lastAttackTime = _gameManager.SimulationTime;
                 _combatType = UnitCombatType.Ranged;
 
                 return true;

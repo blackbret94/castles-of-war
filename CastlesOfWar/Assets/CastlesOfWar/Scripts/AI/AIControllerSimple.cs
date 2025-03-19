@@ -34,13 +34,8 @@ namespace Vashta.CastlesOfWar.AI
             
             _gameManager.EntityChanged += OnEntityChanged;
         }
-
-        private void Update()
-        {
-            OneStep();
-        }
         
-        public override void OneStep()
+        public override void OneStep(float deltaTime)
         {
             // Attempt spawn
             if (_spawnTimer.Run())

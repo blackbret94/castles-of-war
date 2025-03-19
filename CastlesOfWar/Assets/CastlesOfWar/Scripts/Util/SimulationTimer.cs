@@ -15,10 +15,10 @@ namespace Vashta.CastlesOfWar.Util
 
         public bool Run()
         {
-            if (GameManager.Time > LastTime + TimeGap)
+            if (GameManager.SimulationTime > LastTime + TimeGap)
             {
                 HasRun = true;
-                LastTime = GameManager.Time;
+                LastTime = GameManager.SimulationTime;
                 return true;
             }
 
