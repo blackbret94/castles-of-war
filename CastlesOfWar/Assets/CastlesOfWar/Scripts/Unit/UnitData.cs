@@ -30,8 +30,6 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort MeleeNormalDamage;
         public ushort MeleePiercingDamage;
         public ushort MeleeSiegeDamage;
-        [Tooltip("Percent of damage that is applied to AOE")]
-        public float MeleeDamageAreaPercent;
         
         [Header("Range")]
         public float Range; 
@@ -40,12 +38,24 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort RangedNormalDamage;
         public ushort RangedPiercingDamage;
         public ushort RangedSiegeDamage;
+
+        [Header("Area of Effect")] 
+        [Tooltip("If null, no melee area of effect damage will occur")]
+        public GameObject MeleeAreaOfEffectPrefab;
+        [Tooltip("If null, no ranged area of effect damage will occur")]
+        public GameObject RangedAreaOfEffectPrefab;
+        [Tooltip("Percent of damage that is applied to AOE")]
+        public float MeleeDamageAreaPercent;
+        [Tooltip("AOE Radius")]
+        public float MeleeDamageAreaRadius;
         [Tooltip("Percent of damage that is applied to AOE")]
         public float RangedDamageAreaPercent;
+        [Tooltip("AOE Radius")]
+        public float RangedDamageAreaRadius;
         
         [Header("Projectile")]
         public float ProjectileSpeedX;
-        [Tooltip("Fake a trajectory using distance as a reference. 0 is horizontal.")]
+        [Tooltip("Vertical speed.  Ignored if ProjectileHasTrajectory.  0 is horizontal.")]
         public float ProjectileAngle;
         [Tooltip("Accelerates in the -y direction.  M/s.  9.8 for realism.")]
         public float ProjectileGravity = 9.8f;

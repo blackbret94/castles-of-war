@@ -42,8 +42,10 @@ namespace Vashta.CastlesOfWar.AI
             {
                 if (!unitBase.TargetIsOverride)
                 {
-                    unitBase.SetTargetEntity(NextEntity, true);
+                    unitsCommanded++;
                 }
+                
+                unitBase.SetTargetEntity(NextEntity, true);
 
                 // Stop when max units are hit
                 if (unitsCommanded > numberOfUnits)
@@ -61,6 +63,7 @@ namespace Vashta.CastlesOfWar.AI
                 if (unitBase.TargetIsOverride && !_team.UnitIsPastTarget(unitBase))
                 {
                     unitBase.SetTargetEntity(TargetEntity, false);
+                    unitsCommanded++;
                 }
 
                 // Stop when max units are hit
@@ -79,6 +82,7 @@ namespace Vashta.CastlesOfWar.AI
                 if (unitBase.TargetIsOverride)
                 {
                     unitBase.SetTargetEntity(TargetEntity, false);
+                    unitsCommanded++;
                 }
 
                 // Stop when max units are hit

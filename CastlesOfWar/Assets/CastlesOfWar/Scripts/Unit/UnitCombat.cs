@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Vashta.CastlesOfWar.Combat;
 using Vashta.CastlesOfWar.Projectiles;
 using Vashta.CastlesOfWar.Simulation;
 
@@ -134,6 +137,29 @@ namespace Vashta.CastlesOfWar.Unit
             short damageDone = nearestUnit.Health.TakeAttack(_unitData.MeleeNormalDamage, _unitData.MeleePiercingDamage,
                 _unitData.MeleeSiegeDamage, UnitCombatType.Melee);
 
+            // AOE
+            if (_unitData.MeleeAreaOfEffectPrefab != null)
+            {
+                GameObject meleeAreaOfEffect = Instantiate(_unitData.MeleeAreaOfEffectPrefab, nearestUnit.transform.position, Quaternion.identity);
+                AreaOfEffectBase aoeBase = meleeAreaOfEffect.GetComponent<AreaOfEffectBase>();
+
+                if (!aoeBase)
+                {
+                    Debug.LogError("AreaOfEffectBase prefab is missing AreaOfEffectBase component!");
+                }
+                else
+                {
+                    float damageAreaPercent = _unitData.MeleeDamageAreaPercent;
+                    ushort normalDamageAoe = (ushort)Mathf.FloorToInt(_unitData.MeleeNormalDamage * damageAreaPercent);
+                    ushort piercingDamageAoe = (ushort)Mathf.FloorToInt(_unitData.MeleePiercingDamage * damageAreaPercent);
+                    ushort siegeDamageAoe = (ushort)Mathf.FloorToInt(_unitData.MeleeSiegeDamage * damageAreaPercent);
+                    List<UnitBase> unitsToIgnore = new List<UnitBase>(){nearestUnit};
+                    
+                    aoeBase.Attack(_gameManager, (short)UnitBase.TeamIndex, normalDamageAoe, piercingDamageAoe,
+                        siegeDamageAoe, _unitData.MeleeDamageAreaRadius, UnitCombatType.Melee, unitsToIgnore);
+                }
+            }
+
             return damageDone > 0;
         }
 
@@ -197,8 +223,8 @@ namespace Vashta.CastlesOfWar.Unit
             ushort siegeDamage = _unitData.RangedSiegeDamage;
             float damageAreaPerc = _unitData.RangedDamageAreaPercent;
             
-            projectileBase.Init(normalDamage, piercingDamage, siegeDamage, damageAreaPerc, UnitBase, 
-                speedX*speedDirectionSign, speedY, gravity, lifetime, destroyOnHit, teamIndex);
+            projectileBase.Init(_unitData, normalDamage, piercingDamage, siegeDamage, damageAreaPerc, UnitBase, 
+                speedX*speedDirectionSign, speedY, gravity, lifetime, destroyOnHit, (short)teamIndex);
             
             _gameManager.AddProjectile(projectileBase);
 

@@ -4,6 +4,8 @@ namespace Vashta.CastlesOfWar.Unit
     public enum UnitType
     {
         MeleeBase,
-        RangedBase
+        RangedBase,
+        BohemothBase,
+        ArtillaryBase,
     }
 }

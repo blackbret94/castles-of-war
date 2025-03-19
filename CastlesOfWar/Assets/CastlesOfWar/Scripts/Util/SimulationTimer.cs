@@ -7,10 +7,13 @@ namespace Vashta.CastlesOfWar.Util
         public bool HasRun { get; private set; }
         public GameManager GameManager;
 
-        public SimulationTimer(GameManager gameManager, float timeGap)
+        public SimulationTimer(GameManager gameManager, float timeGap, bool runImmediately=true)
         {
             GameManager = gameManager;
             TimeGap = timeGap;
+
+            if (!runImmediately)
+                LastTime = GameManager.SimulationTime;
         }
 
         public bool Run()

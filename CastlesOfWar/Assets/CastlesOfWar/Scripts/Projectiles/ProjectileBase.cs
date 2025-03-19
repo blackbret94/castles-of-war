@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Vashta.CastlesOfWar.Combat;
 using Vashta.CastlesOfWar.Simulation;
 using Vashta.CastlesOfWar.Unit;
+using Vashta.CastlesOfWar.Util;
 
 namespace Vashta.CastlesOfWar.Projectiles
 {
     public class ProjectileBase : MonoBehaviour, ISimulatedObject
     {
-        public ushort TeamIndex { get; private set; }
+        public short TeamIndex { get; private set; }
         public GameObject SpawnOnDestruction;
 
         private ushort _normalDamage;
@@ -20,12 +23,16 @@ namespace Vashta.CastlesOfWar.Projectiles
         private float _lifetime;
         private bool _destroyOnHit;
         private UnitBase _spawnedBy;
+        private UnitData _unitData;
+
+        private SimulationTimer _destructionTimer;
 
         public bool IsAlive { get; private set; } = true; // Can this actively do damage?
         
-        public void Init(ushort normalDamage, ushort piercingDamage, ushort siegeDamage, float damageAreaPercent,
-            UnitBase spawnedBy, float speedX, float speedY, float gravity, float lifetime, bool destroyOnHit, ushort teamIndex)
+        public void Init(UnitData unitData, ushort normalDamage, ushort piercingDamage, ushort siegeDamage, float damageAreaPercent,
+            UnitBase spawnedBy, float speedX, float speedY, float gravity, float lifetime, bool destroyOnHit, short teamIndex)
         {
+            _unitData = unitData;
             _normalDamage = normalDamage;
             _pierceDamage = piercingDamage;
             _siegeDamage = siegeDamage;
@@ -37,6 +44,8 @@ namespace Vashta.CastlesOfWar.Projectiles
             _lifetime = lifetime;
             _destroyOnHit = destroyOnHit;
             TeamIndex = teamIndex;
+
+            _destructionTimer = new SimulationTimer(GameManager.GetInstance(), _lifetime, false);
         }
 
         public void OneStep(float deltaTime)
@@ -47,6 +56,11 @@ namespace Vashta.CastlesOfWar.Projectiles
             float y = _speedY * deltaTime;
             
             transform.position += new Vector3(x, y, 0);
+
+            if (_destructionTimer.Run())
+            {
+                DestroyProjectile();
+            }
         }
 
         public void OnDestroy()
@@ -65,9 +79,35 @@ namespace Vashta.CastlesOfWar.Projectiles
                 
                 if (_destroyOnHit)
                 {
-                    Destroy(gameObject);
+                    DestroyProjectile(otherUnit);
                 }
             }
+        }
+
+        private void DestroyProjectile(UnitBase unitHit = null)
+        {
+            if (_unitData.RangedAreaOfEffectPrefab != null)
+            {
+                GameObject areaOfEffect = Instantiate(_unitData.RangedAreaOfEffectPrefab, transform.position, Quaternion.identity);
+                AreaOfEffectBase aoeBase = areaOfEffect.GetComponent<AreaOfEffectBase>();
+
+                if (!aoeBase)
+                {
+                    Debug.LogError("AreaOfEffectBase prefab is missing AreaOfEffectBase component!");
+                }
+                else
+                {
+                    ushort normalDamageAoe = (ushort)Mathf.FloorToInt(_normalDamage * _damageAreaPercent);
+                    ushort piercingDamageAoe = (ushort)Mathf.FloorToInt(_pierceDamage * _damageAreaPercent);
+                    ushort siegeDamageAoe = (ushort)Mathf.FloorToInt(_siegeDamage * _damageAreaPercent);
+                    List<UnitBase> unitsToIgnore = new List<UnitBase>(){unitHit};
+                    
+                    aoeBase.Attack(GameManager.GetInstance(), TeamIndex,normalDamageAoe, piercingDamageAoe, siegeDamageAoe, 
+                        _unitData.RangedDamageAreaRadius, UnitCombatType.Ranged, unitsToIgnore);
+                }
+            }
+            
+            Destroy(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -80,7 +120,7 @@ namespace Vashta.CastlesOfWar.Projectiles
                     Instantiate(SpawnOnDestruction, transform.position, Quaternion.identity);
                 }
                 
-                Destroy(gameObject);
+                DestroyProjectile();
             }
         }
     }

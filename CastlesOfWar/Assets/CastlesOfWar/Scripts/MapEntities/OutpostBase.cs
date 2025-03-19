@@ -12,11 +12,6 @@ namespace Vashta.CastlesOfWar.MapEntities
         protected override void OnCapture()
         {
             base.OnCapture();
-            
-            if (TeamIndex != StartingTeamIndex)
-            {
-                // Game over!
-            }
         }
     }
 }
