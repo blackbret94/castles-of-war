@@ -93,5 +93,11 @@ namespace Vashta.CastlesOfWar.Unit
             Target = entity;
             TargetIsOverride = isOverride;
         }
+
+        public void CommandAdvance()
+        {
+            Target = Commander.NextEntity;
+            TargetIsOverride = true;
+        }
     }
 }

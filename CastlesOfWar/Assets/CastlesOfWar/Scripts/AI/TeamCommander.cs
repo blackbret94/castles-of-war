@@ -129,13 +129,12 @@ namespace Vashta.CastlesOfWar.AI
             // If all outposts are conquered, target base
             if (NextEntity == null)
             {
-                NextEntity = _team.TeamIndex == 0 ? _gameManager.BaseLeft : _gameManager.BaseRight;
+                NextEntity = _team.TeamIndex == 0 ? _gameManager.BaseRight : _gameManager.BaseLeft;
             }
             
             // If target has changed, update for units
             if (TargetEntity != previousEntity)
             {
-                // Debug.Log("Setting team " + _team.TeamIndex + " target to: " + TargetEntity.DebugName);
                 List<UnitBase> units = _team.Units;
 
                 foreach (UnitBase unitBase in units)

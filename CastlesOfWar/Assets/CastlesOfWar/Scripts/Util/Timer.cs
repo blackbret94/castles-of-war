@@ -5,7 +5,7 @@ namespace Vashta.CastlesOfWar.Util
     public class Timer
     {
         public float LastTime { get; private set; }
-        public float TimeGap { get;}
+        public float TimeGap { get; private set; }
         public bool HasRun { get; private set; }
 
         public Timer(float timeGap)
@@ -23,6 +23,11 @@ namespace Vashta.CastlesOfWar.Util
             }
 
             return false;
+        }
+        
+        public void SetNewTimeGap(float newTimeGap)
+        {
+            TimeGap = newTimeGap;
         }
     }
 }

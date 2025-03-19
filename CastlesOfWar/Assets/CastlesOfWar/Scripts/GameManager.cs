@@ -82,21 +82,21 @@ namespace Vashta.CastlesOfWar
             return teamIndex == 0 ? TeamRight : TeamLeft;
         }
 
-        public void SpawnUnit(UnitData unitData, int teamIndex)
+        public UnitBase SpawnUnit(UnitData unitData, int teamIndex)
         {
             if (unitData == null)
             {
                 Debug.LogError("Cannot spawn, UnitData is null!");
-                return;
+                return null;
             }
             
             if (teamIndex >= Teams.Count)
             {
                 Debug.LogWarning("Team index " + teamIndex + " is higher than the number of teams!");
-                return;
+                return null;
             }
 
-            if (Teams[teamIndex].SpawnUnit(unitData))
+            if (Teams[teamIndex].SpawnUnit(unitData, out UnitBase outUnit))
             {
                 // Spawn success
             }
@@ -104,6 +104,8 @@ namespace Vashta.CastlesOfWar
             {
                 // Spawn failed
             }
+
+            return outUnit;
         }
 
         public void AddProjectile(ProjectileBase projectile)

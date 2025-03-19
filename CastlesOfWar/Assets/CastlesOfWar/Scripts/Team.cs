@@ -38,8 +38,10 @@ namespace Vashta.CastlesOfWar
             CurrencyController.ModifyGold(GoldStart[teamIndex]);
         }
 
-        public bool SpawnUnit(UnitData unitData)
+        public bool SpawnUnit(UnitData unitData, out UnitBase outUnitBase)
         {
+            outUnitBase = null;
+            
             if (unitData == null)
             {
                 Debug.LogError("Cannot spawn, UnitData is null!");
@@ -57,17 +59,10 @@ namespace Vashta.CastlesOfWar
             CurrencyController.ModifyGold(-goldCost);
             
             GameObject newUnit = Object.Instantiate(unitData.Prefab, Spawn.transform.position, Spawn.transform.rotation);
-            UnitBase newUnitBase = newUnit.GetComponent<UnitBase>();
-            newUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
-            newUnitBase.Team = this;
-
-            if (!newUnitBase)
-            {
-                Debug.LogError("Error spawning unit!");
-            }
-            
-            newUnitBase.Init(this);
-            Units.Add(newUnitBase);
+            outUnitBase = newUnit.GetComponent<UnitBase>();
+            outUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
+            outUnitBase.Init(this);
+            Units.Add(outUnitBase);
             return true;
         }
 
