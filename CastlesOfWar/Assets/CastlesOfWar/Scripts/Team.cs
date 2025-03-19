@@ -60,7 +60,10 @@ namespace Vashta.CastlesOfWar
             
             GameObject newUnit = Object.Instantiate(unitData.Prefab, Spawn.transform.position, Spawn.transform.rotation);
             outUnitBase = newUnit.GetComponent<UnitBase>();
-            outUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
+
+            Color mainColor = TeamIndex == 0 ? Color.blue : Color.red;
+            Color auraColor = Color.Lerp(mainColor, Color.white, .5f);
+            outUnitBase.SetForTeam(mainColor, auraColor);
             outUnitBase.Init(this);
             Units.Add(outUnitBase);
             return true;

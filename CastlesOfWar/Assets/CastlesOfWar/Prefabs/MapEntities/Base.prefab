@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7482525752339881474}
   - component: {fileID: 4561203711330572462}
-  - component: {fileID: 3399021541539026364}
+  - component: {fileID: 5215880617823003567}
   m_Layer: 0
   m_Name: AuraCollider
   m_TagString: Untagged
@@ -166,7 +166,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3399021541539026364
+--- !u!114 &5215880617823003567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2226604716872510777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27885873863349c2a311a792f18ece3f, type: 3}
+  m_Script: {fileID: 11500000, guid: d4a3239989584224bf45bfde3a5efeca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MapEntity: {fileID: 3000160686727909063}
@@ -233,8 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc3891d92c2240a4a1f9dc3ade8c33cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugName: 
   CollisionCollider: {fileID: 6491608325487790027}
-  AuraCollider: {fileID: 3399021541539026364}
+  AuraCollider: {fileID: 5215880617823003567}
   StartsConstructed: 1
   StartingTeamIndex: -1
   MapEntityData: {fileID: 11400000, guid: ccc17f9d8b2f85245b0e0a1c4dcc383a, type: 2}

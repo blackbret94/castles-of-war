@@ -43,7 +43,8 @@ namespace Vashta.CastlesOfWar.Unit
         public UnitHealth Health { get; set; }
         public UnitData UnitData;
         public Transform AttackOrigin;
-        public SpriteRenderer SpriteRenderer;
+        public List<SpriteRenderer> SpritesToColor;
+        public SpriteRenderer Aura;
         public Healthbar Healthbar;
         
         private void Awake()
@@ -81,6 +82,8 @@ namespace Vashta.CastlesOfWar.Unit
             
             MeleeCollider.SetColliderWidth(UnitData.MeleeRange);
             RangedCollider.SetColliderWidth(UnitData.Range);
+            
+            Aura.gameObject.SetActive(false);
         }
 
         // Use base values and modifiers to update unit stats
@@ -112,9 +115,14 @@ namespace Vashta.CastlesOfWar.Unit
             return CurrentHealth > 0;
         }
 
-        public void SetForTeam(Color color)
+        public void SetForTeam(Color mainColor, Color auraColor)
         {
-            SpriteRenderer.color = color;
+            foreach (SpriteRenderer spriteRenderer in SpritesToColor)
+            {
+                spriteRenderer.color = mainColor;
+            }
+
+            Aura.color = auraColor;
         }
 
         public void SetTargetEntity(MapEntityBase entity, bool isOverride)
@@ -132,6 +140,7 @@ namespace Vashta.CastlesOfWar.Unit
         public void SetEntityAura(MapEntityBase entity)
         {
             EntityAura = entity;
+            Aura.gameObject.SetActive(true);
             CalculateStats();
         }
 
@@ -140,6 +149,7 @@ namespace Vashta.CastlesOfWar.Unit
             if (EntityAura == entity)
             {
                 EntityAura = null;
+                Aura.gameObject.SetActive(false);
                 CalculateStats();
             }
         }

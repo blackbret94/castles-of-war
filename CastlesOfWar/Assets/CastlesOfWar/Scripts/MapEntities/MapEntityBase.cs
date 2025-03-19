@@ -102,11 +102,21 @@ namespace Vashta.CastlesOfWar.MapEntities
 
         protected virtual void OnNeutralized()
         {
+            if (AuraCollider)
+            {
+                AuraCollider.ClearOverlaps();
+            }
+            
             GameManager.EventEntityChanged();
         }
 
         protected virtual void OnCapture()
         {
+            if (AuraCollider)
+            {
+                AuraCollider.ReCheckForOverlaps();
+            }
+            
             GameManager.EventEntityChanged();
         }
     }
