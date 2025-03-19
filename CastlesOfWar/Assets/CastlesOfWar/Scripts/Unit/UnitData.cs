@@ -13,6 +13,8 @@ namespace Vashta.CastlesOfWar.Unit
         public ushort Armor;
         public float Speed;
         public UnitType UnitType;
+        [Tooltip("How far from the target should they stand.  This ensures frontline units are ahead of ranged units.  Positive values stand in front of the target, negative values behind the target.")]
+        public float DistanceToStandFromTarget;
         
         [Header("Art")]
         public Sprite SpriteIdle;

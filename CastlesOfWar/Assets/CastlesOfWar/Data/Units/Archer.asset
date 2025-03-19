@@ -22,6 +22,7 @@ MonoBehaviour:
   Armor: 0
   Speed: 1
   UnitType: 1
+  DistanceToStandFromTarget: -0.5
   SpriteIdle: {fileID: 0}
   GoldCost: 16
   PowerCost: 0

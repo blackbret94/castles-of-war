@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Vashta.CastlesOfWar.Combat;
 using Vashta.CastlesOfWar.Projectiles;
@@ -212,8 +211,23 @@ namespace Vashta.CastlesOfWar.Unit
             
             float angle = _unitData.ProjectileAngle;
             float speedX = _unitData.ProjectileSpeedX;
-            float speedY = Mathf.Tan(Mathf.Deg2Rad * angle) * speedX; // Right now this only works for very small angles, not trajectories
             float gravity = _unitData.ProjectileGravity;
+            
+            // determine speed Y
+            float speedY = 0;
+            if (!_unitData.ProjectileHasTrajectory)
+            {
+                // Use angle
+                speedY = Mathf.Tan(Mathf.Deg2Rad * angle) * speedX; // Right now this only works for very small angles, not trajectories
+            }
+            else
+            {
+                // use distance
+                float distance = nearestUnit.transform.position.x - UnitBase.transform.position.x;
+                float time = distance / speedX;
+                speedY = .5f * gravity * time;
+            }
+            
             float lifetime = _unitData.ProjectileLifetime;
             bool destroyOnHit = _unitData.ProjectileDestroyOnHit;
             ushort teamIndex = UnitBase.TeamIndex;

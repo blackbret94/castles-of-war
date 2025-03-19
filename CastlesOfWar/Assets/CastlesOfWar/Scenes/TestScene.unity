@@ -1926,8 +1926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamIndex: 1
-  SpearUnit: {fileID: 11400000, guid: 19483c6ad2a6b034c96445027db47c8f, type: 2}
-  SlingerUnit: {fileID: 11400000, guid: 6b9f2243aa0866243a1056a440098031, type: 2}
+  UnitDataDictionary: {fileID: 11400000, guid: 8e5f8759f10efdf47a096473d594e78b, type: 2}
   SpawnRate: 1
   AdvanceRateBaseMin: 10
   AdvanceRateBaseMax: 30

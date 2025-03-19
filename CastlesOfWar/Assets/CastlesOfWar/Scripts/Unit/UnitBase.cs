@@ -73,7 +73,7 @@ namespace Vashta.CastlesOfWar.Unit
             Target = Commander.TargetEntity;
             BaseSpeed = UnitData.Speed * Random.Range(.8f, 1.2f);
             CalculateStats();
-
+            
             MaxHealth = UnitData.Health;
             CurrentHealth = (short)MaxHealth;
             Healthbar.SetMaxHealth(MaxHealth);
@@ -84,6 +84,8 @@ namespace Vashta.CastlesOfWar.Unit
             RangedCollider.SetColliderWidth(UnitData.Range);
             
             Aura.gameObject.SetActive(false);
+            
+            Movement.RecalculateTargetX();
         }
 
         // Use base values and modifiers to update unit stats
@@ -128,12 +130,14 @@ namespace Vashta.CastlesOfWar.Unit
         public void SetTargetEntity(MapEntityBase entity, bool isOverride)
         {
             Target = entity;
+            Movement.RecalculateTargetX();
             TargetIsOverride = isOverride;
         }
 
         public void CommandAdvance()
         {
             Target = Commander.NextEntity;
+            Movement.RecalculateTargetX();
             TargetIsOverride = true;
         }
 

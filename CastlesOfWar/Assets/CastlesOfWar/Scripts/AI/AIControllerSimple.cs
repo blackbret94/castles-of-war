@@ -10,8 +10,7 @@ namespace Vashta.CastlesOfWar.AI
 {
     public class AIControllerSimple : AIControllerBase
     {
-        public UnitData SpearUnit;
-        public UnitData SlingerUnit;
+        public UnitDataDictionary UnitDataDictionary;
         
         [Tooltip("How often does it attempt to spawn a unit?")]
         public float SpawnRate = 1.5f;
@@ -40,14 +39,20 @@ namespace Vashta.CastlesOfWar.AI
             // Attempt spawn
             if (_spawnTimer.Run())
             {
+                UnitData unitData = null;
+                
                 if (Random.Range(0, 5) < 4)
                 {
-                    GameManager.GetInstance().SpawnUnit(SpearUnit, TeamIndex);
+                    // Get a random unit.  May fail
+                    unitData = UnitDataDictionary.GetRandom();
                 }
                 else
                 {
-                    GameManager.GetInstance().SpawnUnit(SlingerUnit, TeamIndex);
+                    // Get a unit we can afford
+                    unitData = UnitDataDictionary.GetRandom((short)_team.CurrencyController.Gold);
                 }
+                
+                GameManager.GetInstance().SpawnUnit(unitData, TeamIndex);
                 
                 // If a neutral outpost exists, go for it
                 if(_neutralOutpostExists)

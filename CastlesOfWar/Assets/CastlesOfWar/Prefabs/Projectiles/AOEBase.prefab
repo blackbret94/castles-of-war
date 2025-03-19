@@ -138,5 +138,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseRadius: 1
-  Lifetime: 0.5
+  Lifetime: 0.25
   Collider: {fileID: 5880325584068820626}

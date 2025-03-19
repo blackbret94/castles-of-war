@@ -44,7 +44,7 @@ namespace Vashta.CastlesOfWar.Projectiles
             _lifetime = lifetime;
             _destroyOnHit = destroyOnHit;
             TeamIndex = teamIndex;
-
+            
             _destructionTimer = new SimulationTimer(GameManager.GetInstance(), _lifetime, false);
         }
 

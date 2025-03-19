@@ -22,6 +22,7 @@ MonoBehaviour:
   Armor: 0
   Speed: 0.1
   UnitType: 3
+  DistanceToStandFromTarget: -1
   SpriteIdle: {fileID: 0}
   GoldCost: 20
   PowerCost: 0
@@ -50,7 +51,7 @@ MonoBehaviour:
   ProjectileGravity: 9.8
   ProjectileLifetime: 10
   ProjectileDestroyOnHit: 1
-  ProjectileHasTrajectory: 0
+  ProjectileHasTrajectory: 1
   ProjectilePrefab: {fileID: 5002150413727129509, guid: 7a41e3d619c0a13478184651e289724d, type: 3}
   VulnerabilityMelee: 2
   VulnerabilityRange: 0.5

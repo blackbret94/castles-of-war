@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpearmanUnit
   m_EditorClassIdentifier: 
   Id: 7a574e71-8fbc-438a-a114-1e563f9eaa01
-  SessionId: 2
+  SessionId: 4
   Title: Spearman
   DisplayName: Spearman
   Description: Basic melee unit
@@ -22,25 +22,30 @@ MonoBehaviour:
   Armor: 2
   Speed: 1
   UnitType: 0
+  DistanceToStandFromTarget: 0
   SpriteIdle: {fileID: 0}
   GoldCost: 8
   PowerCost: 0
   GoldRewardOnKill: 0
   PowerRewardOnKill: 5
-  MeleeRange: 0.75
+  MeleeRange: 1
   MeleeAttackSpeed: 0.25
   MeleeAttackCooldown: 1.5
   MeleeNormalDamage: 3
   MeleePiercingDamage: 1
   MeleeSiegeDamage: 3
-  MeleeDamageAreaPercent: 0
   Range: 0
   RangedAttackSpeed: 0
   RangedAttackCooldown: 0
   RangedNormalDamage: 0
   RangedPiercingDamage: 0
   RangedSiegeDamage: 0
+  MeleeAreaOfEffectPrefab: {fileID: 0}
+  RangedAreaOfEffectPrefab: {fileID: 0}
+  MeleeDamageAreaPercent: 0
+  MeleeDamageAreaRadius: 0
   RangedDamageAreaPercent: 0
+  RangedDamageAreaRadius: 0
   ProjectileSpeedX: 0
   ProjectileAngle: 0
   ProjectileGravity: -9.8

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KnightUnit
   m_EditorClassIdentifier: 
   Id: ecf5f7ca-f455-42c0-909c-54ff3b03bab8
-  SessionId: 0
+  SessionId: 2
   Title: Knight
   DisplayName: Knight
   Description: Heavily armored and slow-moving unit
@@ -22,6 +22,7 @@ MonoBehaviour:
   Armor: 5
   Speed: 0.75
   UnitType: 0
+  DistanceToStandFromTarget: 0.5
   SpriteIdle: {fileID: 0}
   GoldCost: 16
   PowerCost: 0

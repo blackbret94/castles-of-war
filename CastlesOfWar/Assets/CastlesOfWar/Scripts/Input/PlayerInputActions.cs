@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Vashta.CastlesOfWar.AI;
 using Vashta.CastlesOfWar.Unit;
@@ -18,7 +19,13 @@ namespace Vashta.CastlesOfWar.Input
             PlayerTeam = GameManager.TeamLeft;
             Commander = PlayerTeam.Commander;
         }
-        
+
+        private void Update()
+        {
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+                Quit();
+        }
+
         public void CommandAdvance()
         {
             Commander.CommandAdvance(NumberOfUnitsToCommand);
@@ -37,6 +44,11 @@ namespace Vashta.CastlesOfWar.Input
         public void SpawnUnit(UnitData unitData)
         {
             GameManager.SpawnUnit(unitData, 0);
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }

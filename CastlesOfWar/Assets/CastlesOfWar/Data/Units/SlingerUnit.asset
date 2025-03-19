@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlingerUnit
   m_EditorClassIdentifier: 
   Id: 537936db-8821-46f3-ab9c-b87dfb313a14
-  SessionId: 1
+  SessionId: 3
   Title: Slinger
   DisplayName: Slinger
   Description: Basic ranged unit
@@ -22,6 +22,7 @@ MonoBehaviour:
   Armor: 0
   Speed: 1
   UnitType: 1
+  DistanceToStandFromTarget: -0.5
   SpriteIdle: {fileID: 0}
   GoldCost: 12
   PowerCost: 0
@@ -33,14 +34,18 @@ MonoBehaviour:
   MeleeNormalDamage: 2
   MeleePiercingDamage: 1
   MeleeSiegeDamage: 0
-  MeleeDamageAreaPercent: 0
   Range: 5
   RangedAttackSpeed: 0.5
   RangedAttackCooldown: 2
   RangedNormalDamage: 3
   RangedPiercingDamage: 2
   RangedSiegeDamage: 2
+  MeleeAreaOfEffectPrefab: {fileID: 0}
+  RangedAreaOfEffectPrefab: {fileID: 0}
+  MeleeDamageAreaPercent: 0
+  MeleeDamageAreaRadius: 0
   RangedDamageAreaPercent: 0
+  RangedDamageAreaRadius: 0
   ProjectileSpeedX: 8
   ProjectileAngle: 20
   ProjectileGravity: 9.8
