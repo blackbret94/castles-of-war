@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0b864072e94282b0ac22a16244bf52, type: 3}
+  m_Name: KnightUnit
+  m_EditorClassIdentifier: 
+  Id: ecf5f7ca-f455-42c0-909c-54ff3b03bab8
+  SessionId: 0
+  Title: Knight
+  DisplayName: Knight
+  Description: Heavily armored and slow-moving unit
+  Prefab: {fileID: 6628730050691863414, guid: 8c58ed6928217c6468acee21fb0b639f, type: 3}
+  Health: 15
+  Armor: 5
+  Speed: 0.75
+  UnitType: 0
+  SpriteIdle: {fileID: 0}
+  GoldCost: 16
+  PowerCost: 0
+  GoldRewardOnKill: 0
+  PowerRewardOnKill: 10
+  MeleeRange: 0.5
+  MeleeAttackSpeed: 0.75
+  MeleeAttackCooldown: 2
+  MeleeNormalDamage: 4
+  MeleePiercingDamage: 1
+  MeleeSiegeDamage: 2
+  Range: 0
+  RangedAttackSpeed: 0
+  RangedAttackCooldown: 0
+  RangedNormalDamage: 0
+  RangedPiercingDamage: 0
+  RangedSiegeDamage: 0
+  MeleeAreaOfEffectPrefab: {fileID: 0}
+  RangedAreaOfEffectPrefab: {fileID: 0}
+  MeleeDamageAreaPercent: 0
+  MeleeDamageAreaRadius: 0
+  RangedDamageAreaPercent: 0
+  RangedDamageAreaRadius: 0
+  ProjectileSpeedX: 0
+  ProjectileAngle: 0
+  ProjectileGravity: 9.8
+  ProjectileLifetime: 100
+  ProjectileDestroyOnHit: 1
+  ProjectileHasTrajectory: 0
+  ProjectilePrefab: {fileID: 0}
+  VulnerabilityMelee: 1
+  VulnerabilityRange: 1
+  VulnerabilityNormal: 1
+  VulnerabilityPiercing: 1
+  VulnerabilitySiege: 0.25
