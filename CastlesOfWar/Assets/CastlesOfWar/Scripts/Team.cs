@@ -71,21 +71,6 @@ namespace Vashta.CastlesOfWar
             return true;
         }
 
-        public void Advance(int teamIndex)
-        {
-            Debug.Log("Advancing");
-        }
-
-        public void Hold(int teamIndex)
-        {
-            Debug.Log("Holding");
-        }
-
-        public void Retreat(int teamIndex)
-        {
-            Debug.Log("Retreating");
-        }
-
         public void DespawnUnit(UnitBase unit)
         {
             Units.Remove(unit);
@@ -104,6 +89,36 @@ namespace Vashta.CastlesOfWar
         {
             MoveUnits(timestep);
             CurrencyController.OneStep(timestep);
+        }
+        
+        // 0 is furthest from base, max is closest
+        public List<UnitBase> GetUnitsByDistanceFromBase()
+        {
+            List<UnitBase> sortedUnits = new List<UnitBase>(Units);
+
+            if (TeamIndex == 0)
+            {
+                // Left
+                sortedUnits.Sort((a, b) => b.transform.position.x.CompareTo(a.transform.position.x));
+            } else if (TeamIndex == 1)
+            {
+                // Right
+                sortedUnits.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
+            }
+            
+            return sortedUnits;
+        }
+
+        public bool UnitIsPastTarget(UnitBase unit)
+        {
+            if (TeamIndex == 0)
+            {
+                return unit.transform.position.x > Commander.TargetEntity.transform.position.x;
+            }
+            else
+            {
+                return unit.transform.position.x < Commander.TargetEntity.transform.position.x;
+            }
         }
     }
 }

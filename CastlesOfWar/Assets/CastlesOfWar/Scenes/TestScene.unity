@@ -767,23 +767,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 990350291}
+      objectReference: {fileID: 822104412}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Retreat
+      value: CommandRetreat
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Vashta.CastlesOfWar.GameManager, Assembly-CSharp
+      value: Vashta.CastlesOfWar.Input.PlayerInputActions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -959,6 +959,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5100335160047802546, guid: 9aa37d7f2dede8a45a19325532255f06, type: 3}
   m_PrefabInstance: {fileID: 776363066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &822104410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 822104411}
+  - component: {fileID: 822104412}
+  m_Layer: 0
+  m_Name: Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &822104411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822104410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1340108299}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &822104412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822104410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0f536921c64e2094629cad7c03613f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfUnitsToCommand: 3
 --- !u!1001 &856726390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1584,6 +1629,7 @@ Transform:
   m_Children:
   - {fileID: 990350292}
   - {fileID: 591689430}
+  - {fileID: 822104411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1392208675 stripped
@@ -1689,23 +1735,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 990350291}
+      objectReference: {fileID: 822104412}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Hold
+      value: CommandHold
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Vashta.CastlesOfWar.GameManager, Assembly-CSharp
+      value: Vashta.CastlesOfWar.Input.PlayerInputActions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2008,23 +2054,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 990350291}
+      objectReference: {fileID: 822104412}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Advance
+      value: CommandAdvance
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Vashta.CastlesOfWar.GameManager, Assembly-CSharp
+      value: Vashta.CastlesOfWar.Input.PlayerInputActions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1341863624099867983, guid: 6933d56c9b9a2422aa8cec290acc26a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

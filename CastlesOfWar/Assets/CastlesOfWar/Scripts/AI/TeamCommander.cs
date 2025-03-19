@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Vashta.CastlesOfWar.MapEntities;
 using Vashta.CastlesOfWar.Simulation;
 using Vashta.CastlesOfWar.Unit;
@@ -34,6 +33,60 @@ namespace Vashta.CastlesOfWar.AI
             
         }
 
+        public void CommandAdvance(short numberOfUnits)
+        {
+            List<UnitBase> units = _team.GetUnitsByDistanceFromBase();
+            short unitsCommanded = 0;
+
+            foreach (UnitBase unitBase in units)
+            {
+                if (!unitBase.TargetIsOverride)
+                {
+                    unitBase.SetTargetEntity(NextEntity, true);
+                }
+
+                // Stop when max units are hit
+                if (unitsCommanded > numberOfUnits)
+                    break;
+            }
+        }
+
+        public void CommandHold(short numberOfUnits)
+        {
+            List<UnitBase> units = _team.GetUnitsByDistanceFromBase();
+            short unitsCommanded = 0;
+
+            foreach (UnitBase unitBase in units)
+            {
+                if (unitBase.TargetIsOverride && !_team.UnitIsPastTarget(unitBase))
+                {
+                    unitBase.SetTargetEntity(TargetEntity, false);
+                }
+
+                // Stop when max units are hit
+                if (unitsCommanded > numberOfUnits)
+                    break;
+            }
+        }
+
+        public void CommandRetreat(short numberOfUnits)
+        {
+            List<UnitBase> units = _team.GetUnitsByDistanceFromBase();
+            short unitsCommanded = 0;
+
+            foreach (UnitBase unitBase in units)
+            {
+                if (unitBase.TargetIsOverride)
+                {
+                    unitBase.SetTargetEntity(TargetEntity, false);
+                }
+
+                // Stop when max units are hit
+                if (unitsCommanded > numberOfUnits)
+                    break;
+            }
+        }
+
         private void OnEntityChanged(object sender, EventArgs e)
         {
             CalculateTargetEntity();
@@ -56,7 +109,8 @@ namespace Vashta.CastlesOfWar.AI
 
             // In case no outposts are owned, go to the first one
             TargetEntity = outposts[0];
-            
+
+            NextEntity = null;
             foreach (OutpostBase outpostBase in outposts)
             {
                 if (outpostBase.TeamIndex == _team.TeamIndex)
@@ -71,6 +125,12 @@ namespace Vashta.CastlesOfWar.AI
                     break;
                 }
             }
+
+            // If all outposts are conquered, target base
+            if (NextEntity == null)
+            {
+                NextEntity = _team.TeamIndex == 0 ? _gameManager.BaseLeft : _gameManager.BaseRight;
+            }
             
             // If target has changed, update for units
             if (TargetEntity != previousEntity)
@@ -82,7 +142,7 @@ namespace Vashta.CastlesOfWar.AI
                 {
                     if (unitBase != null)
                     {
-                        unitBase.SetTargetEntity(TargetEntity, true);
+                        unitBase.SetTargetEntity(TargetEntity, false);
                     }
                 }
             }

@@ -13,7 +13,7 @@ namespace Vashta.CastlesOfWar
         public Team TeamLeft { get; set; }
         public Team TeamRight { get; set; }
 
-        private List<Team> Teams;
+        public List<Team> Teams { get; private set; }
 
         [FormerlySerializedAs("SpawnerLeft")] public Base BaseLeft;
         [FormerlySerializedAs("SpawnerRight")] public Base BaseRight;
@@ -104,39 +104,6 @@ namespace Vashta.CastlesOfWar
             {
                 // Spawn failed
             }
-        }
-        
-        public void Advance(int teamIndex)
-        {
-            if (teamIndex >= Teams.Count)
-            {
-                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
-                return;
-            }
-            
-            Teams[teamIndex].Advance(teamIndex);
-        }
-
-        public void Hold(int teamIndex)
-        {
-            if (teamIndex >= Teams.Count)
-            {
-                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
-                return;
-            }
-
-            Teams[teamIndex].Advance(teamIndex);
-        }
-
-        public void Retreat(int teamIndex)
-        {
-            if (teamIndex >= Teams.Count)
-            {
-                Debug.LogWarning("Team index " + teamIndex + " is higher than thee number of teams!");
-                return;
-            }
-            
-            Teams[teamIndex].Retreat(teamIndex);
         }
 
         public void AddProjectile(ProjectileBase projectile)

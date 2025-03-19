@@ -88,10 +88,10 @@ namespace Vashta.CastlesOfWar.Unit
             SpriteRenderer.color = color;
         }
 
-        public void SetTargetEntity(MapEntityBase entity, bool setByCommander)
+        public void SetTargetEntity(MapEntityBase entity, bool isOverride)
         {
             Target = entity;
-            TargetIsOverride = !setByCommander;
+            TargetIsOverride = isOverride;
         }
     }
 }
