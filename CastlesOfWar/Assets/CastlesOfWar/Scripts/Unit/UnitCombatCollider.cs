@@ -9,7 +9,7 @@ namespace Vashta.CastlesOfWar.Unit
     {
         private BoxCollider2D _collider2D;
         public UnitBase UnitBase { get; set; }
-        public List<UnitBase> Units = new List<UnitBase>(); // need to prune occasionally to prevent lockups
+        public List<UnitBase> Units = new List<UnitBase>();
 
         private Timer _pruneTimer;
 

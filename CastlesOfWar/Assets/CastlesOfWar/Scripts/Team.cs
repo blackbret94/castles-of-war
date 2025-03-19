@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Vashta.CastlesOfWar.AI;
 using Vashta.CastlesOfWar.Currency;
+using Vashta.CastlesOfWar.MapEntities;
 using Vashta.CastlesOfWar.Simulation;
 using Vashta.CastlesOfWar.Unit;
 
@@ -12,25 +14,26 @@ namespace Vashta.CastlesOfWar
         
         public CurrencyController CurrencyController { get; private set; }
         
-        public LandmarkBase Spawn { get; set; }
-        public LandmarkBase EnemyBase { get; set; }
+        public Base Spawn { get; set; }
+        public Base EnemyBase { get; set; }
         public ushort TeamIndex { get; set; }
         public Color TeamColor { get; set; }
 
-        private List<UnitBase> _units;
+        public List<UnitBase> Units { get; private set; }
+        public TeamCommander Commander { get; private set; }
+        public GameManager GameManager { get; private set; }
 
-        public Team()
+        public Team(GameManager gameManager, ushort teamIndex, Base spawn, Base enemyBase)
         {
-            CurrencyController = new CurrencyController();
-        }
-
-        public void Init(ushort teamIndex, LandmarkBase spawn, LandmarkBase enemyBase)
-        {
+            CurrencyController = new CurrencyController(TeamIndex, gameManager);
+            GameManager = gameManager;
+            
             TeamIndex = teamIndex;
             Spawn = spawn;
             EnemyBase = enemyBase;
 
-            _units = new List<UnitBase>();
+            Units = new List<UnitBase>();
+            Commander = new TeamCommander(gameManager, this);
 
             CurrencyController.ModifyGold(GoldStart[teamIndex]);
         }
@@ -64,40 +67,8 @@ namespace Vashta.CastlesOfWar
             }
             
             newUnitBase.Init(this);
-            _units.Add(newUnitBase);
+            Units.Add(newUnitBase);
             return true;
-        }
-        
-        public void SpawnSpear()
-        {
-            GameObject newUnit = Object.Instantiate(GameManager.GetInstance().SpearPrefab, Spawn.transform.position, Spawn.transform.rotation);
-            UnitBase newUnitBase = newUnit.GetComponent<UnitBase>();
-            newUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
-            newUnitBase.Team = this;
-
-            if (!newUnitBase)
-            {
-                Debug.LogError("Error spawning unit!");
-            }
-            
-            newUnitBase.Init(this);
-            _units.Add(newUnitBase);
-        }
-
-        public void SpawnSlinger()
-        {
-            GameObject newUnit = Object.Instantiate(GameManager.GetInstance().SlingerPrefab, Spawn.transform.position, Spawn.transform.rotation);
-            UnitBase newUnitBase = newUnit.GetComponent<UnitBase>();
-            newUnitBase.SetForTeam(TeamIndex == 0 ? Color.blue : Color.red); // TODO: replace with team definitions
-            newUnitBase.Team = this;
-
-            if (!newUnitBase)
-            {
-                Debug.LogError("Error spawning unit!");
-            }
-            
-            newUnitBase.Init(this);
-            _units.Add(newUnitBase);
         }
 
         public void Advance(int teamIndex)
@@ -117,13 +88,13 @@ namespace Vashta.CastlesOfWar
 
         public void DespawnUnit(UnitBase unit)
         {
-            _units.Remove(unit);
+            Units.Remove(unit);
             Object.Destroy(unit.gameObject);
         }
 
         public void MoveUnits(float timestep)
         {
-            foreach (UnitBase unitBase in _units)
+            foreach (UnitBase unitBase in Units)
             {
                 unitBase.OneStep(timestep);
             }

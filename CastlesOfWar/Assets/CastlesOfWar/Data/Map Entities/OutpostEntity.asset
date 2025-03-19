@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfabcdfe12f4c719cfef6a2dfdf7079, type: 3}
+  m_Name: OutpostEntity
+  m_EditorClassIdentifier: 
+  Id: b7f754d5-5db1-47bf-a0e0-7c1a6f2ccad4
+  SessionId: 2
+  Title: Outpost
+  DisplayName: Outpost
+  Description: Capture and hold for benefits
+  Prefab: {fileID: 8909599846290735266, guid: 9aa37d7f2dede8a45a19325532255f06, type: 3}
+  CanCapture: 1
+  CaptureTime: 5
+  CanBuild: 0
+  ConstructionCost: 0
+  IsBase: 0
+  IsOutpost: 1
+  GoldPerSecond: 2
+  PowerPerSecond: 1
+  TrainsBasicMelee: 0
+  TrainsRanged: 0
+  TrainsCavalry: 0
+  TrainsLargeUnits: 0
+  TrainsSiege: 0
+  CanDestroy: 0
+  Health: 0
+  buffDefense: 2
+  buffMeleeAttackSpeed: 0
+  buffMeleeNormalDamage: 0
+  buffMeleePiercingDamage: 0
+  buffMeleeSiegeDamage: 0
+  buffRangedNormalDamage: 0
+  buffRangedPiercingDamage: 0
+  buffRangedSiegeDamage: 0
+  buffRangedAttackSpeed: 0
+  debuffDefense: 0
+  VulnerabilityMelee: 0
+  VulnerabilityRange: 0
+  VulnerabilityNormal: 0
+  VulnerabilityPiercing: 0
+  VulnerabilitySiege: 0

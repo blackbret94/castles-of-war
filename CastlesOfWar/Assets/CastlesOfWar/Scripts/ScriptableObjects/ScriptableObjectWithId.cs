@@ -23,14 +23,17 @@ namespace Vashta.CastlesOfWar.ScriptableObject
     public class ScriptableObjectWithID : UnityEngine.ScriptableObject
     {
         // System
-        [ScriptableObjectId]
+        [ScriptableObjectId][Tooltip("Main UUID used to identify entity, guaranteed to be unique.")]
         public string Id;
         [HideInInspector] 
         public ushort SessionId; // Generated on a per-session basis using the Dictionary.  Safe for single session use, but not saving.
         
         // User
+        [Tooltip("Human-readable ID, should be unique.  Never displayed in UI.")]
         public string Title;
+        [Tooltip("Name that appears in UI, does not need to be unique")]
         public string DisplayName;
+        [Tooltip("Description that appears in UI")]
         public string Description;
     }
 }

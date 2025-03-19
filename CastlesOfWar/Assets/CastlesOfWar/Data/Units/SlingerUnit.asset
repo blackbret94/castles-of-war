@@ -37,8 +37,8 @@ MonoBehaviour:
   Range: 5
   RangedAttackSpeed: 0.5
   RangedAttackCooldown: 2
-  RangedNormalDamage: 4
-  RangedPiercingDamage: 4
+  RangedNormalDamage: 3
+  RangedPiercingDamage: 2
   RangedSiegeDamage: 2
   RangedDamageAreaPercent: 0
   ProjectileSpeedX: 8

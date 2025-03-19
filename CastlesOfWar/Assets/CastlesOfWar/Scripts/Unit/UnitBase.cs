@@ -1,4 +1,6 @@
 using UnityEngine;
+using Vashta.CastlesOfWar.AI;
+using Vashta.CastlesOfWar.MapEntities;
 using Vashta.CastlesOfWar.Simulation;
 using Vashta.CastlesOfWar.UI;
 
@@ -9,12 +11,17 @@ namespace Vashta.CastlesOfWar.Unit
     [RequireComponent(typeof(UnitHealth))]
     public class UnitBase : MonoBehaviour, ISimulatedObject
     {
+        [Tooltip("Instance name for debugging purposes only")]
+        public string DebugName;
         public Team Team { get; set; }
+        public TeamCommander Commander { get; private set; }
         public ushort TeamIndex { get=>Team.TeamIndex; }
         public float Speed { get; set; }
         public ushort MaxHealth { get; set; }
         public short CurrentHealth { get; set; }
         public ushort Armor { get; set; }
+        public MapEntityBase Target { get; private set; }
+        public bool TargetIsOverride { get; private set; } // Was this set by the commander or by the Player/AI Personality?
         
         [Header("Dependencies")]
         public UnitCombat Combat { get; set; }
@@ -50,6 +57,8 @@ namespace Vashta.CastlesOfWar.Unit
         public void Init(Team team)
         {
             Team = team;
+            Commander = Team.Commander;
+            Target = Commander.TargetEntity;
             Speed = UnitData.Speed * Random.Range(.8f, 1.2f);
             Armor = UnitData.Armor;
 
@@ -79,5 +88,10 @@ namespace Vashta.CastlesOfWar.Unit
             SpriteRenderer.color = color;
         }
 
+        public void SetTargetEntity(MapEntityBase entity, bool setByCommander)
+        {
+            Target = entity;
+            TargetIsOverride = !setByCommander;
+        }
     }
 }

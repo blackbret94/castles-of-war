@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfabcdfe12f4c719cfef6a2dfdf7079, type: 3}
+  m_Name: BaseEntity
+  m_EditorClassIdentifier: 
+  Id: 7e6f1197-5190-4dfe-a037-80f8ee85ed82
+  SessionId: 1
+  Title: Base
+  DisplayName: Base
+  Description: Player base - lose this and you lose the game
+  Prefab: {fileID: 4029340998142469173, guid: e2ff48e3f7d5d814b856389095a238e6, type: 3}
+  CanCapture: 1
+  CaptureTime: 10
+  CanBuild: 0
+  ConstructionCost: 0
+  IsBase: 1
+  IsOutpost: 0
+  GoldPerSecond: 5
+  PowerPerSecond: 1
+  TrainsBasicMelee: 1
+  TrainsRanged: 1
+  TrainsCavalry: 1
+  TrainsLargeUnits: 1
+  TrainsSiege: 1
+  CanDestroy: 0
+  Health: 0
+  buffDefense: 3
+  buffMeleeAttackSpeed: 0
+  buffMeleeNormalDamage: 0
+  buffMeleePiercingDamage: 0
+  buffMeleeSiegeDamage: 0
+  buffRangedNormalDamage: 0
+  buffRangedPiercingDamage: 0
+  buffRangedSiegeDamage: 0
+  buffRangedAttackSpeed: 0
+  debuffDefense: 0
+  VulnerabilityMelee: 0
+  VulnerabilityRange: 0
+  VulnerabilityNormal: 0
+  VulnerabilityPiercing: 0
+  VulnerabilitySiege: 0

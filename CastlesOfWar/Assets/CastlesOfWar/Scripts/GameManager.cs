@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Vashta.CastlesOfWar.Currency;
+using UnityEngine.Serialization;
+using Vashta.CastlesOfWar.MapEntities;
 using Vashta.CastlesOfWar.Projectiles;
 using Vashta.CastlesOfWar.Unit;
 
@@ -14,17 +15,18 @@ namespace Vashta.CastlesOfWar
 
         private List<Team> Teams;
 
-        public LandmarkBase SpawnerLeft;
-        public LandmarkBase SpawnerRight;
-
-        public GameObject SpearPrefab;
-        public GameObject SlingerPrefab;
+        [FormerlySerializedAs("SpawnerLeft")] public Base BaseLeft;
+        [FormerlySerializedAs("SpawnerRight")] public Base BaseRight;
         
         private List<ProjectileBase> _projectiles;
-        
+        public List<OutpostBase> Outposts { get; private set; }
+        public List<MapEntityBase> MapEntities { get; private set; }
+
         public float Time { get; private set; }
         
         private static GameManager _instance;
+        
+        public event EventHandler EntityChanged;
 
         public static GameManager GetInstance()
         {
@@ -33,24 +35,30 @@ namespace Vashta.CastlesOfWar
 
         private void Awake()
         {
+            // Init this
             _instance = this;
             _projectiles = new List<ProjectileBase>();
             
-            TeamLeft = new Team();
-            TeamRight = new Team();
-
+            // Register map entities
+            Outposts = new List<OutpostBase>(FindObjectsByType<OutpostBase>(FindObjectsSortMode.None));
+            MapEntities = new List<MapEntityBase>(FindObjectsByType<MapEntityBase>(FindObjectsSortMode.None));
+            
+            // Configure teams (must come after map is registered)
+            TeamLeft = new Team(this, 0, BaseLeft, BaseRight);
+            TeamRight = new Team(this, 1, BaseRight, BaseLeft);
             Teams = new List<Team>{TeamLeft, TeamRight};
-            TeamLeft.Init(0, SpawnerLeft, SpawnerRight);
-            TeamRight.Init(1, SpawnerRight, SpawnerLeft);
         }
         
         private void Update()
         {
             float deltaTime = UnityEngine.Time.deltaTime;
             Time += deltaTime;
+            
+            // Run teams and units
             TeamLeft.OneStep(deltaTime);
             TeamRight.OneStep(deltaTime);
 
+            // Run projectiles
             List<ProjectileBase> projectiles = new List<ProjectileBase>(_projectiles);
             foreach (ProjectileBase projectileBase in projectiles)
             {
@@ -60,6 +68,12 @@ namespace Vashta.CastlesOfWar
                 }
                 
                 projectileBase.OneStep(deltaTime);
+            }
+            
+            // Run map entities
+            foreach (MapEntityBase mapEntity in MapEntities)
+            {
+                mapEntity.OneStep(deltaTime);
             }
         }
 
@@ -133,6 +147,11 @@ namespace Vashta.CastlesOfWar
         public void RemoveProjectile(ProjectileBase projectile)
         {
             _projectiles.Remove(projectile);
+        }
+
+        public void EventEntityChanged()
+        {
+            EntityChanged?.Invoke(this, null);
         }
     }
 }
