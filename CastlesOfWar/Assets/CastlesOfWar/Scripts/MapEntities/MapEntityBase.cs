@@ -11,7 +11,7 @@ namespace Vashta.CastlesOfWar.MapEntities
         public string DebugName;
         public short TeamIndex { get; private set; }
         [FormerlySerializedAs("Collider")] public MapEntityCollider CollisionCollider;
-        public MapEntityCollider AuraCollider;
+        public MapEntityAuraCollider AuraCollider;
         public bool StartsConstructed = true;
         public short StartingTeamIndex = -1;
         public MapEntityData MapEntityData;

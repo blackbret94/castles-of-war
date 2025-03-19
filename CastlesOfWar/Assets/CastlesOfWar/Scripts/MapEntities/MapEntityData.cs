@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vashta.CastlesOfWar.ScriptableObject;
 
 namespace Vashta.CastlesOfWar.MapEntities
@@ -36,9 +37,11 @@ namespace Vashta.CastlesOfWar.MapEntities
         public bool CanDestroy;
         public ushort Health;
 
-        [Header("UnitBuffs")] 
-        public bool BuffsInAura;
-        public short BuffDefense;
+        [Header("UnitEffects")] 
+        public float SpeedModifierPerc = 1;
+
+        [FormerlySerializedAs("BuffDefense")] [Header("UnitBuffs")] 
+        public short BuffArmor;
         public float BuffMeleeAttackSpeed;
         public short BuffMeleeNormalDamage;
         public short BuffMeleePiercingDamage;
@@ -51,7 +54,6 @@ namespace Vashta.CastlesOfWar.MapEntities
         public float BuffVulnerabilityRanged = 1;
 
         [Header("UnitDebuffs")]
-        public bool DebuffsInAura;
         public short DebuffDefense;
         
         [Header("Vulnerabilities")]

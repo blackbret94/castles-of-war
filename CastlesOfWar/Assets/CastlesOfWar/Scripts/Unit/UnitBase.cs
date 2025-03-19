@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Vashta.CastlesOfWar.AI;
 using Vashta.CastlesOfWar.MapEntities;
@@ -16,12 +17,22 @@ namespace Vashta.CastlesOfWar.Unit
         public Team Team { get; set; }
         public TeamCommander Commander { get; private set; }
         public ushort TeamIndex { get=>Team.TeamIndex; }
-        public float Speed { get; set; }
+        
+        // Stats
+        public float BaseSpeed { get; set; }
+        public float Speed { get; private set; }
         public ushort MaxHealth { get; set; }
         public short CurrentHealth { get; set; }
-        public ushort Armor { get; set; }
+        public ushort Armor { get; private set; }
+        public float MeleeVulnerability { get; private set; }
+        public float RangedVulnerability { get; private set; }
+        
+        // AI
         public MapEntityBase Target { get; private set; }
         public bool TargetIsOverride { get; private set; } // Was this set by the commander or by the Player/AI Personality?
+        
+        // Modifiers
+        public MapEntityBase EntityAura { get; private set; }
         
         [Header("Dependencies")]
         public UnitCombat Combat { get; set; }
@@ -59,8 +70,8 @@ namespace Vashta.CastlesOfWar.Unit
             Team = team;
             Commander = Team.Commander;
             Target = Commander.TargetEntity;
-            Speed = UnitData.Speed * Random.Range(.8f, 1.2f);
-            Armor = UnitData.Armor;
+            BaseSpeed = UnitData.Speed * Random.Range(.8f, 1.2f);
+            CalculateStats();
 
             MaxHealth = UnitData.Health;
             CurrentHealth = (short)MaxHealth;
@@ -70,6 +81,24 @@ namespace Vashta.CastlesOfWar.Unit
             
             MeleeCollider.SetColliderWidth(UnitData.MeleeRange);
             RangedCollider.SetColliderWidth(UnitData.Range);
+        }
+
+        // Use base values and modifiers to update unit stats
+        private void CalculateStats()
+        {
+            Armor = UnitData.Armor;
+            Speed = BaseSpeed;
+            RangedVulnerability = UnitData.VulnerabilityRange;
+            MeleeVulnerability = UnitData.VulnerabilityMelee;
+
+            if (EntityAura != null)
+            {
+                MapEntityData entityData = EntityAura.MapEntityData;
+                Armor += (ushort)entityData.BuffArmor;
+                Speed *= entityData.SpeedModifierPerc;
+                RangedVulnerability *= entityData.BuffVulnerabilityRanged;
+                MeleeVulnerability *= entityData.VulnerabilityMelee;
+            }
         }
 
         public void OneStep(float timestep)
@@ -98,6 +127,21 @@ namespace Vashta.CastlesOfWar.Unit
         {
             Target = Commander.NextEntity;
             TargetIsOverride = true;
+        }
+
+        public void SetEntityAura(MapEntityBase entity)
+        {
+            EntityAura = entity;
+            CalculateStats();
+        }
+
+        public void RemoveEntityAura(MapEntityBase entity)
+        {
+            if (EntityAura == entity)
+            {
+                EntityAura = null;
+                CalculateStats();
+            }
         }
     }
 }

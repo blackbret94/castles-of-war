@@ -33,16 +33,19 @@ MonoBehaviour:
   TrainsSiege: 1
   CanDestroy: 0
   Health: 0
-  buffDefense: 3
-  buffMeleeAttackSpeed: 0
-  buffMeleeNormalDamage: 0
-  buffMeleePiercingDamage: 0
-  buffMeleeSiegeDamage: 0
-  buffRangedNormalDamage: 0
-  buffRangedPiercingDamage: 0
-  buffRangedSiegeDamage: 0
-  buffRangedAttackSpeed: 0
-  debuffDefense: 0
+  SpeedModifierPerc: 1
+  BuffArmor: 3
+  BuffMeleeAttackSpeed: 0
+  BuffMeleeNormalDamage: 0
+  BuffMeleePiercingDamage: 0
+  BuffMeleeSiegeDamage: 0
+  BuffRangedNormalDamage: 0
+  BuffRangedPiercingDamage: 0
+  BuffRangedSiegeDamage: 0
+  BuffRangedAttackSpeed: 0
+  BuffVulnerabilityMelee: 1
+  BuffVulnerabilityRanged: 0.7
+  DebuffDefense: 0
   VulnerabilityMelee: 0
   VulnerabilityRange: 0
   VulnerabilityNormal: 0
